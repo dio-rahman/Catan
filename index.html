@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="logo_thithep.png">
+    <link rel="icon" type="image/png" href="logo/logo_thithep.png">
     <title>THITHEP</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         canvas {
-            background-color: #e6f3fa;
+            background-color: #b3d9e6;
             border: 4px solid #2d3748;
             border-radius: 20px;
         }
@@ -118,12 +118,44 @@
             margin-top: 10px;
             text-align: center;
         }
+        #game-over-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.85);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+        #game-over-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            z-index: 101;
+        }
     </style>
 </head>
 
 <body class="bg-gray-100 flex flex-col items-center min-h-screen font-sans">
     <h1 class="text-4xl font-bold text-gray-800 mt-6 mb-4">Thinking Of The Problem</h1>
-    <canvas id="papan" width="900" height="700" class="shadow-lg"></canvas>
+    <div class="relative">
+        <canvas id="papan" width="900" height="700" class="shadow-lg"></canvas>
+        <div id="game-over-container">
+            <div id="game-over-content">
+                <h2 class="text-2xl font-bold mb-4">Permainan Selesai!</h2>
+                <div id="ranking-text" class="text-lg mb-6"></div>
+                <div class="flex justify-center gap-4">
+                    <button id="tombol-selesai" class="bg-green-600 text-white px-6 py-3 rounded text-lg hover:bg-green-700" disabled>Selesai</button>
+                    <button id="tombol-main-lagi" class="bg-orange-600 text-white px-6 py-3 rounded text-lg hover:bg-orange-700" disabled>Main Lagi</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="timer-bar-container" class="hidden">
         <div id="timer-bar"></div>
         <div id="dots-container"></div>
@@ -143,16 +175,16 @@
             <button id="kirim-jawaban" class="bg-green-600 text-white px-6 py-3 rounded text-lg hover:bg-green-700 mt-3 disabled:tombol-dinonaktifkan">Kirim Jawaban</button>
         </div>
         <div id="poin-menang" class="text-base text-gray-600 mt-4"></div>
-        <div id="audio-error" class="w-full max-w-4xl">Gagal memuat audio. Pastikan file audio tersedia.</div>
+        <div id="audio-error" class="w-full max-w-4xl">Gagal memuat beberapa file audio. Permainan akan berlanjut tanpa efek suara tertentu.</div>
     </div>
 
     <!-- Audio Elements for Backsound and Sound Effects -->
-    <audio id="audio-jawaban" src="jawaban-backsound.mp3" preload="auto" loop></audio>
-    <audio id="audio-kocokan-dadu" src="kocokan-dadu.mp3" preload="auto"></audio>
-    <audio id="audio-button-click" src="button-click.mp3" preload="auto"></audio>
-    <audio id="audio-select-area" src="select-area.mp3" preload="auto"></audio>
-    <audio id="audio-time-up" src="time-up.mp3" preload="auto"></audio>
-    <audio id="audio-confirm" src="confirm.mp3" preload="auto"></audio>
+    <audio id="audio-jawaban" src="bpm/jawaban-backsound.mp3" preload="auto" loop></audio>
+    <audio id="audio-kocokan-dadu" src="bpm/kocokan-dadu.mp3" preload="auto"></audio>
+    <audio id="audio-button-click" src="bpm/button-click.mp3" preload="auto"></audio>
+    <audio id="audio-select-area" src="bpm/select-area.mp3" preload="auto"></audio>
+    <audio id="audio-time-up" src="bpm/time-up.mp3" preload="auto"></audio>
+    <audio id="audio-confirm" src="bpm/confirm.mp3" preload="auto"></audio>
 
     <!-- Modal Konfirmasi Kustom -->
     <div id="modal-konfirmasi">
@@ -192,10 +224,10 @@
         };
 
         const pemain = [
-            { id: 1, warna: '#FF3333', poinKemenangan: 0 },
-            { id: 2, warna: '#33CC33', poinKemenangan: 0 },
-            { id: 3, warna: '#FFFF33', poinKemenangan: 0 },
-            { id: 4, warna: '#3399FF', poinKemenangan: 0 }
+            { id: 1, warna: '#FF3333', poinKemenangan: 0, waktuMencapaiSkor: null },
+            { id: 2, warna: '#33CC33', poinKemenangan: 0, waktuMencapaiSkor: null },
+            { id: 3, warna: '#FFFF33', poinKemenangan: 0, waktuMencapaiSkor: null },
+            { id: 4, warna: '#3399FF', poinKemenangan: 0, waktuMencapaiSkor: null }
         ];
 
         const pertanyaan = [
@@ -216,7 +248,7 @@
             { id: 15, teks: "Apakah kegiatan penebangan hutan secara ilegal dapat memperburuk kerusakan lingkungan? Jelaskan!", kataKunci: ["iya"], area: 5 },
             { id: 16, teks: "Apakah ada cara agar manusia dapat hidup selaras dengan alam? Berikan contohnya!", kataKunci: ["ada", "dengan cara"], area: 6 },
             { id: 17, teks: "Bagaimana dampak jangka panjang terhadap alam jika manusia terus bersikap tidak peduli terhadap lingkungan?", kataKunci: ["kerusakan"], area: 6 },
-            { id: 18, teks: "Jika manusia dan alam saling bekerja sama dengan baik apakah akan terjadi hubungan yang menguntungkan? Jelaskan!", kataKunci: ["iya"], area: 6 }
+            { id: 18, teks: "Apakah tindakan kecil seperti mengurangi penggunaan plastik dapat membantu menjaga lingkungan? Jelaskan!", kataKunci: ["iya", "membantu"], area: 6 }
         ];
 
         let area = [];
@@ -229,6 +261,10 @@
         let updateTimerId = null;
         let sisaWaktu = 60;
         let blinkSoundInterval = null;
+        let waktuMulaiPermainan = null;
+        let lastInvalidClick = 0;
+        let audioErrorShown = false;
+        let gameOver = false;
 
         const audioElements = [
             'audio-jawaban', 'audio-kocokan-dadu', 'audio-button-click',
@@ -242,21 +278,39 @@
                 audioLoaded[id] = false;
                 audio.addEventListener('canplaythrough', () => {
                     audioLoaded[id] = true;
+                    console.log(`Audio ${id} loaded successfully: ${audio.src}`);
                 });
                 audio.addEventListener('error', () => {
-                    document.getElementById('audio-error').style.display = 'block';
-                    console.error(`Gagal memuat audio: ${audio.src}`);
+                    if (!audioErrorShown) {
+                        document.getElementById('audio-error').style.display = 'block';
+                        audioErrorShown = true;
+                    }
+                    console.error(`Failed to load audio: ${audio.src}`);
                 });
+                audio.load();
             });
         }
 
-        function playAudio(audioId) {
+        function playAudio(audioId, retryCount = 0) {
             const audio = document.getElementById(audioId);
+            if (!audio) {
+                console.error(`Audio element ${audioId} not found`);
+                return;
+            }
+
             if (audioLoaded[audioId]) {
+                audio.pause();
                 audio.currentTime = 0;
-                audio.play().catch(e => console.log(`Gagal memutar audio ${audioId}:`, e));
+                audio.play().catch(e => {
+                    console.warn(`Failed to play audio ${audioId}: ${e.message}`);
+                });
+            } else if (retryCount < 2) {
+                setTimeout(() => {
+                    console.log(`Retrying audio ${audioId}, attempt ${retryCount + 1}`);
+                    playAudio(audioId, retryCount + 1);
+                }, 500);
             } else {
-                console.log(`Audio ${audioId} belum dimuat`);
+                console.warn(`Audio ${audioId} not loaded after retries: ${audio.src}`);
             }
         }
 
@@ -306,8 +360,9 @@
 
                 if (sisaWaktu <= 0) {
                     tampilkanPapan();
-                    document.getElementById('audio-kocokan-dadu').pause();
-                    document.getElementById('audio-kocokan-dadu').currentTime = 0;
+                    const audioKocokan = document.getElementById('audio-kocokan-dadu');
+                    audioKocokan.pause();
+                    audioKocokan.currentTime = 0;
                     callback();
                     return;
                 }
@@ -383,6 +438,7 @@
         }
 
         function tampilkanPapan() {
+            if (gameOver) return;
             konteks.clearRect(0, 0, kanvas.width, kanvas.height);
             area.forEach(itemArea => {
                 const { x, y } = heksagonKePiksel(itemArea.q, itemArea.r);
@@ -412,15 +468,19 @@
             const dotsContainer = document.getElementById('dots-container');
             const dot = document.createElement('div');
             dot.classList.add('dot');
-            const position = (60 - sisaWaktu) * (900 / 62);
+            const position = (60 - sisaWaktu) / 60 * 900;
             dot.style.left = `${position}px`;
             dotsContainer.appendChild(dot);
             
             if (sisaWaktu <= 30 && sisaWaktu > 10) {
                 document.getElementById('timer-bar').style.backgroundColor = '#eab308';
+                const dots = document.querySelectorAll('.dot');
+                dots.forEach(dot => dot.style.backgroundColor = '#eab308');
             }
             if (sisaWaktu <= 10) {
                 document.getElementById('timer-bar').style.backgroundColor = '#ef4444';
+                const dots = document.querySelectorAll('.dot');
+                dots.forEach(dot => dot.style.backgroundColor = '#ef4444');
             }
             
             if (sisaWaktu <= 0) {
@@ -453,7 +513,7 @@
 
             timerId = setTimeout(() => {
                 resetTimer();
-                document.getElementById('info').textContent = `Pemain ${pemain[pemainSekarang].id}: Waktu habis!`;
+                document.getElementById('info').textContent = `Pemain ${pemain[pemainSekarang].id}: Waktu habis! Tekan "Ganti Pemain" untuk melanjutkan.`;
                 document.getElementById('kontainer-pertanyaan').style.display = 'none';
                 document.getElementById('input-jawaban').value = '';
                 document.getElementById('waktu-habis').style.display = 'block';
@@ -470,12 +530,7 @@
                     }
                 }, 1000);
 
-                const tombolLemparDadu = document.getElementById('lempar-dadu');
-                const tombolGantiPemain = document.getElementById('ganti-pemain');
-                tombolLemparDadu.disabled = true;
-                tombolLemparDadu.classList.add('tombol-dinonaktifkan');
-                tombolGantiPemain.disabled = false;
-                tombolGantiPemain.classList.remove('tombol-dinonaktifkan');
+                aktifkanTombolGantiPemain();
             }, 60000);
         }
 
@@ -506,22 +561,57 @@
             audioJawaban.currentTime = 0;
         }
 
-        function lemparDadu() {
-            playAudio('audio-button-click');
+        function nonaktifkanSemuaTombolKontrol() {
+            const tombolLemparDadu = document.getElementById('lempar-dadu');
+            const tombolGantiPemain = document.getElementById('ganti-pemain');
+            const tombolKirimJawaban = document.getElementById('kirim-jawaban');
+            tombolLemparDadu.disabled = true;
+            tombolLemparDadu.classList.add('tombol-dinonaktifkan');
+            tombolGantiPemain.disabled = true;
+            tombolGantiPemain.classList.add('tombol-dinonaktifkan');
+            tombolKirimJawaban.disabled = true;
+            tombolKirimJawaban.classList.add('tombol-dinonaktifkan');
+        }
+
+        function aktifkanTombolLemparDadu() {
+            const tombolLemparDadu = document.getElementById('lempar-dadu');
+            const tombolGantiPemain = document.getElementById('ganti-pemain');
+            const tombolKirimJawaban = document.getElementById('kirim-jawaban');
+            tombolLemparDadu.disabled = false;
+            tombolLemparDadu.classList.remove('tombol-dinonaktifkan');
+            tombolGantiPemain.disabled = true;
+            tombolGantiPemain.classList.add('tombol-dinonaktifkan');
+            tombolKirimJawaban.disabled = true;
+            tombolKirimJawaban.classList.add('tombol-dinonaktifkan');
+        }
+
+        function aktifkanTombolGantiPemain() {
+            const tombolLemparDadu = document.getElementById('lempar-dadu');
+            const tombolGantiPemain = document.getElementById('ganti-pemain');
+            const tombolKirimJawaban = document.getElementById('kirim-jawaban');
+            tombolLemparDadu.disabled = true;
+            tombolLemparDadu.classList.add('tombol-dinonaktifkan');
+            tombolGantiPemain.disabled = false;
+            tombolGantiPemain.classList.remove('tombol-dinonaktifkan');
+            tombolKirimJawaban.disabled = true;
+            tombolKirimJawaban.classList.add('tombol-dinonaktifkan');
+        }
+
+        function lemparDadu(otomatis = false) {
+            if (!otomatis) playAudio('audio-button-click');
 
             if (pertanyaanTersedia.length === 0) {
-                let pemenang = pemain.reduce((max, p) => p.poinKemenangan > max.poinKemenangan ? p : max, pemain[0]);
-                document.getElementById('info').textContent = `Semua pertanyaan telah dijawab! Pemain ${pemenang.id} menang dengan ${pemenang.poinKemenangan} poin!`;
-                const tombolLemparDadu = document.getElementById('lempar-dadu');
-                const tombolGantiPemain = document.getElementById('ganti-pemain');
-                tombolLemparDadu.disabled = true;
-                tombolLemparDadu.classList.add('tombol-dinonaktifkan');
-                tombolGantiPemain.disabled = true;
-                tombolGantiPemain.classList.add('tombol-dinonaktifkan');
+                cekSelesaiPermainan();
                 return;
             }
 
-            const dadu = Math.floor(Math.random() * 6) + 1;
+            const areasTersedia = [...new Set(pertanyaanTersedia.map(q => q.area))];
+            if (areasTersedia.length === 0) {
+                cekSelesaiPermainan();
+                return;
+            }
+
+            const dadu = areasTersedia[Math.floor(Math.random() * areasTersedia.length)];
             hasilDaduSekarang = null;
             const elemenHasilDadu = document.getElementById('hasil-dadu');
             elemenHasilDadu.classList.add('kedip');
@@ -538,13 +628,12 @@
 
                 const pertanyaanArea = pertanyaanTersedia.filter(q => q.area === dadu);
                 if (pertanyaanArea.length === 0) {
-                    document.getElementById('info').textContent = `Pemain ${pemain[pemainSekarang].id}: Tidak ada pertanyaan tersedia untuk area ${dadu}. Tekan "Ganti Pemain".`;
-                    const tombolLemparDadu = document.getElementById('lempar-dadu');
-                    const tombolGantiPemain = document.getElementById('ganti-pemain');
-                    tombolLemparDadu.disabled = true;
-                    tombolLemparDadu.classList.add('tombol-dinonaktifkan');
-                    tombolGantiPemain.disabled = false;
-                    tombolGantiPemain.classList.remove('tombol-dinonaktifkan');
+                    document.getElementById('info').textContent = `Pemain ${pemain[pemainSekarang].id}: Tidak ada pertanyaan tersedia untuk area ${dadu}. Mengocok ulang...`;
+                    if (areasTersedia.length > 0) {
+                        setTimeout(() => lemparDadu(true), 1000);
+                    } else {
+                        cekSelesaiPermainan();
+                    }
                     return;
                 }
                 const indeksPertanyaan = Math.floor(Math.random() * pertanyaanArea.length);
@@ -555,10 +644,13 @@
 
                 const tombolLemparDadu = document.getElementById('lempar-dadu');
                 const tombolGantiPemain = document.getElementById('ganti-pemain');
+                const tombolKirimJawaban = document.getElementById('kirim-jawaban');
                 tombolLemparDadu.disabled = true;
                 tombolLemparDadu.classList.add('tombol-dinonaktifkan');
                 tombolGantiPemain.disabled = true;
                 tombolGantiPemain.classList.add('tombol-dinonaktifkan');
+                tombolKirimJawaban.disabled = false;
+                tombolKirimJawaban.classList.remove('tombol-dinonaktifkan');
 
                 startTimer();
                 tampilkanPapan();
@@ -570,8 +662,6 @@
 
             const jawaban = document.getElementById('input-jawaban').value.trim().toLowerCase();
             const kataKunci = pertanyaanSaatIni.kataKunci;
-            const tombolLemparDadu = document.getElementById('lempar-dadu');
-            const tombolGantiPemain = document.getElementById('ganti-pemain');
 
             resetTimer();
 
@@ -590,29 +680,25 @@
                         document.getElementById('info').textContent = `Pemain ${pemain[pemainSekarang].id}: Pilih area dengan nomor ${hasilDaduSekarang} untuk mengambil poin`;
                         tampilkanPapan();
 
+                        const tombolLemparDadu = document.getElementById('lempar-dadu');
+                        const tombolGantiPemain = document.getElementById('ganti-pemain');
+                        const tombolKirimJawaban = document.getElementById('kirim-jawaban');
                         tombolLemparDadu.disabled = true;
                         tombolLemparDadu.classList.add('tombol-dinonaktifkan');
                         tombolGantiPemain.disabled = true;
                         tombolGantiPemain.classList.add('tombol-dinonaktifkan');
+                        tombolKirimJawaban.disabled = true;
+                        tombolKirimJawaban.classList.add('tombol-dinonaktifkan');
                     } else {
-                        document.getElementById('info').textContent = `Pemain ${pemain[pemainSekarang].id}: Tidak dapat rebut area, Selesaikan giliran dengan menekan "Ganti Pemain".`;
-
-                        tombolLemparDadu.disabled = true;
-                        tombolLemparDadu.classList.add('tombol-dinonaktifkan');
-                        tombolGantiPemain.disabled = false;
-                        tombolGantiPemain.classList.remove('tombol-dinonaktifkan');
+                        document.getElementById('info').textContent = `Pemain ${pemain[pemainSekarang].id}: Tidak ada area untuk diambil. Ganti pemain.`;
+                        setTimeout(giliranBerikutnya, 1000);
                     }
                 }, 500);
             } else {
-                document.getElementById('info').textContent = `Pemain ${pemain[pemainSekarang].id}: Jawaban Salah.`;
+                document.getElementById('info').textContent = `Pemain ${pemain[pemainSekarang].id}: Jawaban Salah. Ganti pemain.`;
                 setTimeout(() => {
                     document.getElementById('kontainer-pertanyaan').style.display = 'none';
-                    document.getElementById('info').textContent = `Pemain ${pemain[pemainSekarang].id}: Jawaban Salah. Tekan tombol "Ganti Pemain" untuk melanjutkan.`;
-
-                    tombolLemparDadu.disabled = true;
-                    tombolLemparDadu.classList.add('tombol-dinonaktifkan');
-                    tombolGantiPemain.disabled = false;
-                    tombolGantiPemain.classList.remove('tombol-dinonaktifkan');
+                    giliranBerikutnya();
                 }, 500);
             }
 
@@ -622,7 +708,11 @@
 
         function perbaruiPoinKemenangan() {
             pemain.forEach(itemPemain => {
+                const poinLama = itemPemain.poinKemenangan;
                 itemPemain.poinKemenangan = area.filter(t => t.pemilik === pemain.indexOf(itemPemain)).length;
+                if (itemPemain.poinKemenangan > poinLama && itemPemain.waktuMencapaiSkor === null) {
+                    itemPemain.waktuMencapaiSkor = Date.now() - waktuMulaiPermainan;
+                }
             });
             let teksPoin = '';
             pemain.forEach(itemPemain => {
@@ -630,15 +720,33 @@
             });
             document.getElementById('poin-menang').innerHTML = teksPoin;
 
-            let pemenang = pemain.find(p => p.poinKemenangan >= 10);
-            if (pemenang) {
-                document.getElementById('info').textContent = `Pemain ${pemenang.id} Menang dengan ${pemenang.poinKemenangan} Poin!`;
-                const tombolLemparDadu = document.getElementById('lempar-dadu');
-                const tombolGantiPemain = document.getElementById('ganti-pemain');
-                tombolLemparDadu.disabled = true;
-                tombolLemparDadu.classList.add('tombol-dinonaktifkan');
-                tombolGantiPemain.disabled = true;
-                tombolGantiPemain.classList.add('tombol-dinonaktifkan');
+            const areaTersedia = area.filter(t => t.pemilik === null && !(t.q === 0 && t.r === 0));
+            if (areaTersedia.length === 0) {
+                cekSelesaiPermainan();
+            }
+        }
+
+        function cekSelesaiPermainan() {
+            const areaTersedia = area.filter(t => t.pemilik === null && !(t.q === 0 && t.r === 0));
+            if (areaTersedia.length === 0 || pertanyaanTersedia.length === 0) {
+                gameOver = true;
+                nonaktifkanSemuaTombolKontrol();
+                const ranking = pemain.slice().sort((a, b) => {
+                    if (b.poinKemenangan !== a.poinKemenangan) {
+                        return b.poinKemenangan - a.poinKemenangan;
+                    }
+                    return (a.waktuMencapaiSkor || Infinity) - (b.waktuMencapaiSkor || Infinity);
+                });
+                let rankingText = '';
+                ranking.forEach((p, index) => {
+                    rankingText += `Juara ${index + 1}: Pemain ${p.id} dengan ${p.poinKemenangan} Poin<br>`;
+                });
+                document.getElementById('ranking-text').innerHTML = rankingText;
+                document.getElementById('game-over-container').style.display = 'flex';
+                document.getElementById('info').textContent = 'Permainan Selesai!';
+                document.getElementById('tombol-selesai').disabled = false;
+                document.getElementById('tombol-main-lagi').disabled = false;
+                konteks.clearRect(0, 0, kanvas.width, kanvas.height);
             }
         }
 
@@ -651,14 +759,11 @@
             menungguPemilihanArea = false;
             document.getElementById('info').textContent = `Pemain ${pemain[pemainSekarang].id}: Lempar dadu`;
             document.getElementById('kontainer-pertanyaan').style.display = 'none';
+            document.getElementById('input-jawaban').value = '';
+            document.getElementById('hasil-dadu').textContent = '';
             tampilkanPapan();
 
-            const tombolLemparDadu = document.getElementById('lempar-dadu');
-            const tombolGantiPemain = document.getElementById('ganti-pemain');
-            tombolLemparDadu.disabled = false;
-            tombolLemparDadu.classList.remove('tombol-dinonaktifkan');
-            tombolGantiPemain.disabled = true;
-            tombolGantiPemain.classList.add('tombol-dinonaktifkan');
+            aktifkanTombolLemparDadu();
         }
 
         function tampilkanModalKonfirmasi(pesan, callback) {
@@ -689,12 +794,16 @@
         }
 
         kanvas.addEventListener('click', (event) => {
-            if (!menungguPemilihanArea) return;
+            if (!menungguPemilihanArea || gameOver) return;
+            const now = Date.now();
+            if (now - lastInvalidClick < 500) return;
+            lastInvalidClick = now;
+
             const rect = kanvas.getBoundingClientRect();
             const x = event.clientX - rect.left;
             const y = event.clientY - rect.top;
             const areaTerpilih = cariAreaTerdekat(x, y);
-            if (areaTerpilih && areaTerpilih.nomor === hasilDaduSekarang && areaTerpilih.pemilik === null && !(areaTerpilih.q === 0 && areaTerpilih.r === 0)) {
+            if (areaTerpilih && areaTerpilih.nomor === hasilDaduSekarang && areaTerpilih.pemilik === null && !(areaTerpilih.q === 0 && t.r === 0)) {
                 playAudio('audio-select-area');
 
                 tampilkanModalKonfirmasi(
@@ -705,29 +814,22 @@
                             tampilkanPapan();
                             perbaruiPoinKemenangan();
                             menungguPemilihanArea = false;
-                            document.getElementById('info').textContent = `Pemain ${pemain[pemainSekarang].id}: Area berhasil diambil. Klik "Ganti Pemain" untuk melanjutkan`;
-
-                            const tombolLemparDadu = document.getElementById('lempar-dadu');
-                            const tombolGantiPemain = document.getElementById('ganti-pemain');
-                            tombolLemparDadu.disabled = true;
-                            tombolLemparDadu.classList.add('tombol-dinonaktifkan');
-                            tombolGantiPemain.disabled = false;
-                            tombolGantiPemain.classList.remove('tombol-dinonaktifkan');
+                            document.getElementById('info').textContent = `Pemain ${pemain[pemainSekarang].id}: Area berhasil diambil. Ganti pemain.`;
+                            setTimeout(giliranBerikutnya, 1000);
                         } else {
-                            document.getElementById('info').textContent = `Pemain ${pemain[pemainSekarang].id}: Pemilihan area dibatalkan. Pilih area lain atau klik "Ganti Pemain"`;
-                            const tombolLemparDadu = document.getElementById('lempar-dadu');
-                            const tombolGantiPemain = document.getElementById('ganti-pemain');
-                            tombolLemparDadu.disabled = true;
-                            tombolLemparDadu.classList.add('tombol-dinonaktifkan');
-                            tombolGantiPemain.disabled = false;
-                            tombolGantiPemain.classList.remove('tombol-dinonaktifkan');
+                            document.getElementById('info').textContent = `Pemain ${pemain[pemainSekarang].id}: Pemilihan area dibatalkan. Ganti pemain.`;
+                            menungguPemilihanArea = false;
+                            setTimeout(giliranBerikutnya, 1000);
                         }
                     }
                 );
+            } else {
+                document.getElementById('info').textContent = `Pemain ${pemain[pemainSekarang].id}: Area tidak valid. Pilih area dengan nomor ${hasilDaduSekarang} yang belum diambil.`;
+                console.warn('Invalid area selection attempted.');
             }
         });
 
-        document.getElementById('lempar-dadu').addEventListener('click', lemparDadu);
+        document.getElementById('lempar-dadu').addEventListener('click', () => lemparDadu(false));
         document.getElementById('ganti-pemain').addEventListener('click', giliranBerikutnya);
         document.getElementById('kirim-jawaban').addEventListener('click', kirimJawaban);
 
@@ -735,6 +837,48 @@
             if (e.key === 'Enter') {
                 kirimJawaban();
             }
+        });
+
+        document.getElementById('tombol-selesai').addEventListener('click', () => {
+            playAudio('audio-button-click');
+            document.getElementById('game-over-container').style.display = 'none';
+            document.getElementById('info').textContent = 'Permainan telah selesai. Terima kasih telah bermain!';
+            nonaktifkanSemuaTombolKontrol();
+            konteks.clearRect(0, 0, kanvas.width, kanvas.height);
+            area = [];
+            pertanyaanTersedia = [];
+            pemainSekarang = 0;
+            hasilDaduSekarang = null;
+            menungguPemilihanArea = false;
+            gameOver = false;
+            document.getElementById('poin-menang').innerHTML = '';
+            document.getElementById('hasil-dadu').textContent = '';
+            document.getElementById('tombol-selesai').disabled = true;
+            document.getElementById('tombol-main-lagi').disabled = true;
+        });
+
+        document.getElementById('tombol-main-lagi').addEventListener('click', () => {
+            playAudio('audio-button-click');
+            area = [];
+            pemain.forEach(p => {
+                p.poinKemenangan = 0;
+                p.waktuMencapaiSkor = null;
+            });
+            pemainSekarang = 0;
+            hasilDaduSekarang = null;
+            menungguPemilihanArea = false;
+            pertanyaanTersedia = [...pertanyaan];
+            pertanyaanSaatIni = null;
+            resetTimer();
+            document.getElementById('game-over-container').style.display = 'none';
+            gameOver = false;
+            inisialisasiPapan();
+            tampilkanPapan();
+            perbaruiPoinKemenangan();
+            aktifkanTombolLemparDadu();
+            waktuMulaiPermainan = Date.now();
+            audioErrorShown = false;
+            document.getElementById('audio-error').style.display = 'none';
         });
 
         function inisialisasiPapan() {
@@ -762,13 +906,10 @@
             });
             pertanyaanTersedia = [...pertanyaan];
             document.getElementById('info').textContent = `Pemain ${pemain[pemainSekarang].id}: Lempar dadu`;
-
-            const tombolLemparDadu = document.getElementById('lempar-dadu');
-            const tombolGantiPemain = document.getElementById('ganti-pemain');
-            tombolLemparDadu.disabled = false;
-            tombolLemparDadu.classList.remove('tombol-dinonaktifkan');
-            tombolGantiPemain.disabled = true;
-            tombolGantiPemain.classList.add('tombol-dinonaktifkan');
+            waktuMulaiPermainan = Date.now();
+            document.getElementById('tombol-selesai').disabled = true;
+            document.getElementById('tombol-main-lagi').disabled = true;
+            gameOver = false;
         }
 
         initAudio();

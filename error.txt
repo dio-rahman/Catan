@@ -1,0 +1,911 @@
+[{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "')' expected.",
+	"source": "javascript",
+	"startLineNumber": 420,
+	"startColumn": 38,
+	"endLineNumber": 420,
+	"endColumn": 55
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Declaration or statement expected.",
+	"source": "javascript",
+	"startLineNumber": 420,
+	"startColumn": 55,
+	"endLineNumber": 420,
+	"endColumn": 56
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "'}' expected.",
+	"source": "javascript",
+	"startLineNumber": 673,
+	"startColumn": 72,
+	"endLineNumber": 673,
+	"endColumn": 73
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Declaration or statement expected.",
+	"source": "javascript",
+	"startLineNumber": 673,
+	"startColumn": 105,
+	"endLineNumber": 673,
+	"endColumn": 106
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 673,
+	"startColumn": 107,
+	"endLineNumber": 673,
+	"endColumn": 112
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 673,
+	"startColumn": 113,
+	"endLineNumber": 673,
+	"endColumn": 117
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 673,
+	"startColumn": 118,
+	"endLineNumber": 673,
+	"endColumn": 124
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 673,
+	"startColumn": 125,
+	"endLineNumber": 673,
+	"endColumn": 130
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 673,
+	"startColumn": 131,
+	"endLineNumber": 673,
+	"endColumn": 132
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 673,
+	"startColumn": 152,
+	"endLineNumber": 673,
+	"endColumn": 157
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 673,
+	"startColumn": 158,
+	"endLineNumber": 673,
+	"endColumn": 167
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Module declaration names may only use ' or \" quoted strings.",
+	"source": "javascript",
+	"startLineNumber": 673,
+	"startColumn": 172,
+	"endLineNumber": 677,
+	"endColumn": 54
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 677,
+	"startColumn": 54,
+	"endLineNumber": 677,
+	"endColumn": 60
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 677,
+	"startColumn": 61,
+	"endLineNumber": 677,
+	"endColumn": 62
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Declaration or statement expected.",
+	"source": "javascript",
+	"startLineNumber": 677,
+	"startColumn": 94,
+	"endLineNumber": 677,
+	"endColumn": 95
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 677,
+	"startColumn": 96,
+	"endLineNumber": 677,
+	"endColumn": 101
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 677,
+	"startColumn": 102,
+	"endLineNumber": 677,
+	"endColumn": 105
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 677,
+	"startColumn": 106,
+	"endLineNumber": 677,
+	"endColumn": 110
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 677,
+	"startColumn": 111,
+	"endLineNumber": 677,
+	"endColumn": 116
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "';' expected.",
+	"source": "javascript",
+	"startLineNumber": 677,
+	"startColumn": 132,
+	"endLineNumber": 677,
+	"endColumn": 146
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Identifier expected.",
+	"source": "javascript",
+	"startLineNumber": 677,
+	"startColumn": 147,
+	"endLineNumber": 682,
+	"endColumn": 46
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 682,
+	"startColumn": 46,
+	"endLineNumber": 682,
+	"endColumn": 52
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 682,
+	"startColumn": 53,
+	"endLineNumber": 682,
+	"endColumn": 54
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Declaration or statement expected.",
+	"source": "javascript",
+	"startLineNumber": 682,
+	"startColumn": 86,
+	"endLineNumber": 682,
+	"endColumn": 87
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 682,
+	"startColumn": 88,
+	"endLineNumber": 682,
+	"endColumn": 95
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "';' expected.",
+	"source": "javascript",
+	"startLineNumber": 682,
+	"startColumn": 109,
+	"endLineNumber": 682,
+	"endColumn": 123
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Identifier expected.",
+	"source": "javascript",
+	"startLineNumber": 682,
+	"startColumn": 124,
+	"endLineNumber": 693,
+	"endColumn": 68
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "';' expected.",
+	"source": "javascript",
+	"startLineNumber": 694,
+	"startColumn": 22,
+	"endLineNumber": 694,
+	"endColumn": 27
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "'{' expected.",
+	"source": "javascript",
+	"startLineNumber": 694,
+	"startColumn": 27,
+	"endLineNumber": 694,
+	"endColumn": 28
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 696,
+	"startColumn": 21,
+	"endLineNumber": 696,
+	"endColumn": 27
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 696,
+	"startColumn": 28,
+	"endLineNumber": 696,
+	"endColumn": 29
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Declaration or statement expected.",
+	"source": "javascript",
+	"startLineNumber": 696,
+	"startColumn": 40,
+	"endLineNumber": 696,
+	"endColumn": 41
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 696,
+	"startColumn": 42,
+	"endLineNumber": 696,
+	"endColumn": 43
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Declaration or statement expected.",
+	"source": "javascript",
+	"startLineNumber": 697,
+	"startColumn": 17,
+	"endLineNumber": 697,
+	"endColumn": 19
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "';' expected.",
+	"source": "javascript",
+	"startLineNumber": 702,
+	"startColumn": 46,
+	"endLineNumber": 702,
+	"endColumn": 52
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 702,
+	"startColumn": 53,
+	"endLineNumber": 702,
+	"endColumn": 54
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 702,
+	"startColumn": 66,
+	"endLineNumber": 702,
+	"endColumn": 72
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 702,
+	"startColumn": 73,
+	"endLineNumber": 702,
+	"endColumn": 79
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 702,
+	"startColumn": 80,
+	"endLineNumber": 702,
+	"endColumn": 81
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Non-null assertions can only be used in TypeScript files.",
+	"source": "javascript",
+	"startLineNumber": 702,
+	"startColumn": 97,
+	"endLineNumber": 702,
+	"endColumn": 102
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Module declaration names may only use ' or \" quoted strings.",
+	"source": "javascript",
+	"startLineNumber": 702,
+	"startColumn": 102,
+	"endLineNumber": 714,
+	"endColumn": 42
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 714,
+	"startColumn": 42,
+	"endLineNumber": 714,
+	"endColumn": 48
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 714,
+	"startColumn": 49,
+	"endLineNumber": 714,
+	"endColumn": 50
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Declaration or statement expected.",
+	"source": "javascript",
+	"startLineNumber": 714,
+	"startColumn": 82,
+	"endLineNumber": 714,
+	"endColumn": 83
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 714,
+	"startColumn": 84,
+	"endLineNumber": 714,
+	"endColumn": 90
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Module declaration names may only use ' or \" quoted strings.",
+	"source": "javascript",
+	"startLineNumber": 714,
+	"startColumn": 95,
+	"endLineNumber": 798,
+	"endColumn": 44
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 798,
+	"startColumn": 44,
+	"endLineNumber": 798,
+	"endColumn": 50
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 798,
+	"startColumn": 51,
+	"endLineNumber": 798,
+	"endColumn": 55
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 798,
+	"startColumn": 56,
+	"endLineNumber": 798,
+	"endColumn": 61
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 798,
+	"startColumn": 62,
+	"endLineNumber": 798,
+	"endColumn": 67
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 798,
+	"startColumn": 68,
+	"endLineNumber": 798,
+	"endColumn": 77
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 798,
+	"startColumn": 78,
+	"endLineNumber": 798,
+	"endColumn": 82
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 798,
+	"startColumn": 83,
+	"endLineNumber": 798,
+	"endColumn": 89
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 798,
+	"startColumn": 90,
+	"endLineNumber": 798,
+	"endColumn": 95
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 798,
+	"startColumn": 96,
+	"endLineNumber": 798,
+	"endColumn": 97
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Declaration or statement expected.",
+	"source": "javascript",
+	"startLineNumber": 798,
+	"startColumn": 118,
+	"endLineNumber": 798,
+	"endColumn": 119
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "';' expected.",
+	"source": "javascript",
+	"startLineNumber": 804,
+	"startColumn": 58,
+	"endLineNumber": 804,
+	"endColumn": 64
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 804,
+	"startColumn": 65,
+	"endLineNumber": 804,
+	"endColumn": 66
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Declaration or statement expected.",
+	"source": "javascript",
+	"startLineNumber": 804,
+	"startColumn": 98,
+	"endLineNumber": 804,
+	"endColumn": 99
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 804,
+	"startColumn": 100,
+	"endLineNumber": 804,
+	"endColumn": 104
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 804,
+	"startColumn": 105,
+	"endLineNumber": 804,
+	"endColumn": 113
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "';' expected.",
+	"source": "javascript",
+	"startLineNumber": 804,
+	"startColumn": 128,
+	"endLineNumber": 804,
+	"endColumn": 142
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Identifier expected.",
+	"source": "javascript",
+	"startLineNumber": 804,
+	"startColumn": 143,
+	"endLineNumber": 807,
+	"endColumn": 58
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 807,
+	"startColumn": 58,
+	"endLineNumber": 807,
+	"endColumn": 64
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 807,
+	"startColumn": 65,
+	"endLineNumber": 807,
+	"endColumn": 66
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Declaration or statement expected.",
+	"source": "javascript",
+	"startLineNumber": 807,
+	"startColumn": 98,
+	"endLineNumber": 807,
+	"endColumn": 99
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 807,
+	"startColumn": 100,
+	"endLineNumber": 807,
+	"endColumn": 109
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 807,
+	"startColumn": 110,
+	"endLineNumber": 807,
+	"endColumn": 114
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "';' expected.",
+	"source": "javascript",
+	"startLineNumber": 807,
+	"startColumn": 133,
+	"endLineNumber": 807,
+	"endColumn": 137
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 807,
+	"startColumn": 138,
+	"endLineNumber": 807,
+	"endColumn": 142
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 807,
+	"startColumn": 143,
+	"endLineNumber": 807,
+	"endColumn": 147
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 807,
+	"startColumn": 148,
+	"endLineNumber": 807,
+	"endColumn": 152
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Identifier expected.",
+	"source": "javascript",
+	"startLineNumber": 807,
+	"startColumn": 168,
+	"endLineNumber": 820,
+	"endColumn": 50
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "';' expected.",
+	"source": "javascript",
+	"startLineNumber": 820,
+	"startColumn": 53,
+	"endLineNumber": 820,
+	"endColumn": 58
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "'{' expected.",
+	"source": "javascript",
+	"startLineNumber": 820,
+	"startColumn": 58,
+	"endLineNumber": 820,
+	"endColumn": 59
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "';' expected.",
+	"source": "javascript",
+	"startLineNumber": 820,
+	"startColumn": 67,
+	"endLineNumber": 820,
+	"endColumn": 68
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Declaration or statement expected.",
+	"source": "javascript",
+	"startLineNumber": 820,
+	"startColumn": 78,
+	"endLineNumber": 820,
+	"endColumn": 79
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 820,
+	"startColumn": 80,
+	"endLineNumber": 820,
+	"endColumn": 86
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 820,
+	"startColumn": 87,
+	"endLineNumber": 820,
+	"endColumn": 88
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 820,
+	"startColumn": 105,
+	"endLineNumber": 820,
+	"endColumn": 111
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 820,
+	"startColumn": 112,
+	"endLineNumber": 820,
+	"endColumn": 118
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 820,
+	"startColumn": 119,
+	"endLineNumber": 820,
+	"endColumn": 120
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 820,
+	"startColumn": 135,
+	"endLineNumber": 820,
+	"endColumn": 139
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 820,
+	"startColumn": 140,
+	"endLineNumber": 820,
+	"endColumn": 144
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 820,
+	"startColumn": 145,
+	"endLineNumber": 820,
+	"endColumn": 146
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Declaration or statement expected.",
+	"source": "javascript",
+	"startLineNumber": 820,
+	"startColumn": 158,
+	"endLineNumber": 820,
+	"endColumn": 160
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "';' expected.",
+	"source": "javascript",
+	"startLineNumber": 838,
+	"startColumn": 42,
+	"endLineNumber": 838,
+	"endColumn": 48
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 838,
+	"startColumn": 49,
+	"endLineNumber": 838,
+	"endColumn": 50
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Declaration or statement expected.",
+	"source": "javascript",
+	"startLineNumber": 838,
+	"startColumn": 82,
+	"endLineNumber": 838,
+	"endColumn": 83
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unexpected keyword or identifier.",
+	"source": "javascript",
+	"startLineNumber": 838,
+	"startColumn": 84,
+	"endLineNumber": 838,
+	"endColumn": 90
+},{
+	"resource": "/D:/KERJAAN MAS/Catan/index.html",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"severity": 8,
+	"message": "Unterminated template literal.",
+	"source": "javascript",
+	"startLineNumber": 869,
+	"startColumn": 8,
+	"endLineNumber": 869,
+	"endColumn": 8
+}]
