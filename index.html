@@ -90,6 +90,34 @@
             margin-bottom: 10px;
             animation: kedip 1s step-end infinite;
         }
+        #modal-konfirmasi {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 50;
+            justify-content: center;
+            align-items: center;
+        }
+        #modal-konten {
+            background-color: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+        #audio-error {
+            display: none;
+            color: #ef4444;
+            font-weight: bold;
+            margin-top: 10px;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -115,14 +143,34 @@
             <button id="kirim-jawaban" class="bg-green-600 text-white px-6 py-3 rounded text-lg hover:bg-green-700 mt-3 disabled:tombol-dinonaktifkan">Kirim Jawaban</button>
         </div>
         <div id="poin-menang" class="text-base text-gray-600 mt-4"></div>
+        <div id="audio-error" class="w-full max-w-4xl">Gagal memuat audio. Pastikan file audio tersedia.</div>
+    </div>
+
+    <!-- Audio Elements for Backsound and Sound Effects -->
+    <audio id="audio-jawaban" src="jawaban-backsound.mp3" preload="auto" loop></audio>
+    <audio id="audio-kocokan-dadu" src="kocokan-dadu.mp3" preload="auto"></audio>
+    <audio id="audio-button-click" src="button-click.mp3" preload="auto"></audio>
+    <audio id="audio-select-area" src="select-area.mp3" preload="auto"></audio>
+    <audio id="audio-time-up" src="time-up.mp3" preload="auto"></audio>
+    <audio id="audio-confirm" src="confirm.mp3" preload="auto"></audio>
+
+    <!-- Modal Konfirmasi Kustom -->
+    <div id="modal-konfirmasi">
+        <div id="modal-konten">
+            <p id="modal-pesan" class="text-lg text-gray-700 mb-6"></p>
+            <div class="flex justify-center gap-4">
+                <button id="tombol-iya" class="bg-green-600 text-white px-4 py-2 rounded text-lg hover:bg-green-700">Iya</button>
+                <button id="tombol-tidak" class="bg-red-600 text-white px-4 py-2 rounded text-lg hover:bg-red-700">Tidak</button>
+            </div>
+        </div>
     </div>
 
     <script>
         const kanvas = document.getElementById('papan');
         const konteks = kanvas.getContext('2d');
-        const JARI_JARI_HEKSAGON = 75;
-        const UKURAN_TEKS = JARI_JARI_HEKSAGON * 0.5;
-        const UKURAN_TANDA = JARI_JARI_HEKSAGON * 0.8;
+        const jariJariHeksagon = 75;
+        const ukuranTeks = jariJariHeksagon * 0.5;
+        const ukuranTanda = jariJariHeksagon * 0.8;
 
         const tataLetakPapan = [
             { q: -2, r: 0 }, { q: -2, r: 1 }, { q: -2, r: 2 },
@@ -180,6 +228,37 @@
         let timerId = null;
         let updateTimerId = null;
         let sisaWaktu = 60;
+        let blinkSoundInterval = null;
+
+        const audioElements = [
+            'audio-jawaban', 'audio-kocokan-dadu', 'audio-button-click',
+            'audio-select-area', 'audio-time-up', 'audio-confirm'
+        ];
+        let audioLoaded = {};
+
+        function initAudio() {
+            audioElements.forEach(id => {
+                const audio = document.getElementById(id);
+                audioLoaded[id] = false;
+                audio.addEventListener('canplaythrough', () => {
+                    audioLoaded[id] = true;
+                });
+                audio.addEventListener('error', () => {
+                    document.getElementById('audio-error').style.display = 'block';
+                    console.error(`Gagal memuat audio: ${audio.src}`);
+                });
+            });
+        }
+
+        function playAudio(audioId) {
+            const audio = document.getElementById(audioId);
+            if (audioLoaded[audioId]) {
+                audio.currentTime = 0;
+                audio.play().catch(e => console.log(`Gagal memutar audio ${audioId}:`, e));
+            } else {
+                console.log(`Audio ${audioId} belum dimuat`);
+            }
+        }
 
         function kocok(array) {
             for (let i = array.length - 1; i > 0; i--) {
@@ -192,14 +271,14 @@
         function heksagonKePiksel(q, r) {
             const qRot = -r;
             const rRot = q + r;
-            const x = JARI_JARI_HEKSAGON * Math.sqrt(3) * (qRot + rRot / 2) + kanvas.width / 2;
-            const y = JARI_JARI_HEKSAGON * 3 / 2 * rRot + kanvas.height / 2;
+            const x = jariJariHeksagon * Math.sqrt(3) * (qRot + rRot / 2) + kanvas.width / 2;
+            const y = jariJariHeksagon * 3 / 2 * rRot + kanvas.height / 2;
             return { x, y };
         }
 
         function gambarTitikDadu(konteks, x, y, nilai, radiusTitik) {
             konteks.fillStyle = '#FFFFFF';
-            const offset = JARI_JARI_HEKSAGON * 0.4;
+            const offset = jariJariHeksagon * 0.4;
             const posisiTitik = {
                 1: [[0, 0]],
                 2: [[-offset, -offset], [offset, offset]],
@@ -227,6 +306,8 @@
 
                 if (sisaWaktu <= 0) {
                     tampilkanPapan();
+                    document.getElementById('audio-kocokan-dadu').pause();
+                    document.getElementById('audio-kocokan-dadu').currentTime = 0;
                     callback();
                     return;
                 }
@@ -236,8 +317,8 @@
                 konteks.beginPath();
                 for (let i = 0; i < 6; i++) {
                     const sudut = Math.PI / 180 * (60 * i - 30);
-                    const px = x + JARI_JARI_HEKSAGON * Math.cos(sudut);
-                    const py = y + JARI_JARI_HEKSAGON * Math.sin(sudut);
+                    const px = x + jariJariHeksagon * Math.cos(sudut);
+                    const py = y + jariJariHeksagon * Math.sin(sudut);
                     if (i === 0) konteks.moveTo(px, py);
                     else konteks.lineTo(px, py);
                 }
@@ -251,8 +332,8 @@
                 const jumlahTitik = Math.floor(Math.random() * 6) + 1;
                 konteks.fillStyle = '#FFFFFF';
                 for (let i = 0; i < jumlahTitik; i++) {
-                    const dx = (Math.random() - 0.5) * JARI_JARI_HEKSAGON * 0.8;
-                    const dy = (Math.random() - 0.5) * JARI_JARI_HEKSAGON * 0.8;
+                    const dx = (Math.random() - 0.5) * jariJariHeksagon * 0.8;
+                    const dy = (Math.random() - 0.5) * jariJariHeksagon * 0.8;
                     konteks.beginPath();
                     konteks.arc(x + dx, y + dy, radiusTitik, 0, 2 * Math.PI);
                     konteks.fill();
@@ -268,8 +349,8 @@
             konteks.beginPath();
             for (let i = 0; i < 6; i++) {
                 const sudut = Math.PI / 180 * (60 * i - 30);
-                const px = x + JARI_JARI_HEKSAGON * Math.cos(sudut);
-                const py = y + JARI_JARI_HEKSAGON * Math.sin(sudut);
+                const px = x + jariJariHeksagon * Math.cos(sudut);
+                const py = y + jariJariHeksagon * Math.sin(sudut);
                 if (i === 0) konteks.moveTo(px, py);
                 else konteks.lineTo(px, py);
             }
@@ -282,7 +363,7 @@
 
             if (teks && !adalahPusat) {
                 konteks.fillStyle = '#FFF';
-                konteks.font = `${UKURAN_TEKS}px Arial`;
+                konteks.font = `${ukuranTeks}px Arial`;
                 konteks.textAlign = 'center';
                 konteks.textBaseline = 'middle';
                 konteks.fillText(teks, x, y);
@@ -294,26 +375,10 @@
 
             if (itemArea.pemilik !== null) {
                 konteks.strokeStyle = pemain[itemArea.pemilik].warna;
-                konteks.lineWidth = 10;
-
-                switch (itemArea.pemilik) {
-                    case 0:
-                    konteks.beginPath();
-                        konteks.arc(x, y, UKURAN_TANDA / 2, 0, 2 * Math.PI);
-                        konteks.stroke();
-                    case 1:
-                    konteks.beginPath();
-                        konteks.arc(x, y, UKURAN_TANDA / 2, 0, 2 * Math.PI);
-                        konteks.stroke();
-                    case 2:
-                    konteks.beginPath();
-                        konteks.arc(x, y, UKURAN_TANDA / 2, 0, 2 * Math.PI);
-                        konteks.stroke();
-                    case 3:
-                    konteks.beginPath();
-                        konteks.arc(x, y, UKURAN_TANDA / 2, 0, 2 * Math.PI);
-                        konteks.stroke();
-                }
+                konteks.lineWidth = 15;
+                konteks.beginPath();
+                konteks.arc(x, y, ukuranTanda / 2, 0, 2 * Math.PI);
+                konteks.stroke();
             }
         }
 
@@ -332,7 +397,7 @@
             area.forEach(itemArea => {
                 const { x: tx, y: ty } = heksagonKePiksel(itemArea.q, itemArea.r);
                 const jarak = Math.hypot(tx - x, ty - y);
-                if (jarak < jarakMinimum && jarak < JARI_JARI_HEKSAGON) {
+                if (jarak < jarakMinimum && jarak < jariJariHeksagon) {
                     jarakMinimum = jarak;
                     areaTerdekat = itemArea;
                 }
@@ -384,6 +449,8 @@
                 timerBar.classList.add('active');
             }, 10);
 
+            playAudio('audio-jawaban');
+
             timerId = setTimeout(() => {
                 resetTimer();
                 document.getElementById('info').textContent = `Pemain ${pemain[pemainSekarang].id}: Waktu habis!`;
@@ -391,6 +458,17 @@
                 document.getElementById('input-jawaban').value = '';
                 document.getElementById('waktu-habis').style.display = 'block';
                 pertanyaanSaatIni = null;
+
+                playAudio('audio-time-up');
+
+                blinkSoundInterval = setInterval(() => {
+                    if (document.getElementById('waktu-habis').style.display === 'block') {
+                        playAudio('audio-time-up');
+                    } else {
+                        clearInterval(blinkSoundInterval);
+                        blinkSoundInterval = null;
+                    }
+                }, 1000);
 
                 const tombolLemparDadu = document.getElementById('lempar-dadu');
                 const tombolGantiPemain = document.getElementById('ganti-pemain');
@@ -410,6 +488,10 @@
                 clearInterval(updateTimerId);
                 updateTimerId = null;
             }
+            if (blinkSoundInterval) {
+                clearInterval(blinkSoundInterval);
+                blinkSoundInterval = null;
+            }
             const timerBar = document.getElementById('timer-bar');
             const timerBarContainer = document.getElementById('timer-bar-container');
             const dotsContainer = document.getElementById('dots-container');
@@ -418,9 +500,15 @@
             dotsContainer.innerHTML = '';
             timerBarContainer.classList.add('hidden');
             document.getElementById('waktu-habis').style.display = 'none';
+
+            const audioJawaban = document.getElementById('audio-jawaban');
+            audioJawaban.pause();
+            audioJawaban.currentTime = 0;
         }
 
         function lemparDadu() {
+            playAudio('audio-button-click');
+
             if (pertanyaanTersedia.length === 0) {
                 let pemenang = pemain.reduce((max, p) => p.poinKemenangan > max.poinKemenangan ? p : max, pemain[0]);
                 document.getElementById('info').textContent = `Semua pertanyaan telah dijawab! Pemain ${pemenang.id} menang dengan ${pemenang.poinKemenangan} poin!`;
@@ -440,6 +528,9 @@
             elemenHasilDadu.textContent = `Dadu: Kocok...`;
             
             const { x, y } = heksagonKePiksel(0, 0);
+
+            playAudio('audio-kocokan-dadu');
+
             animasiKocokanDadu(x, y, dadu, 2000, () => {
                 hasilDaduSekarang = dadu;
                 elemenHasilDadu.textContent = `Dadu: ${dadu}`;
@@ -475,6 +566,8 @@
         }
 
         function kirimJawaban() {
+            playAudio('audio-button-click');
+
             const jawaban = document.getElementById('input-jawaban').value.trim().toLowerCase();
             const kataKunci = pertanyaanSaatIni.kataKunci;
             const tombolLemparDadu = document.getElementById('lempar-dadu');
@@ -509,7 +602,7 @@
                         tombolGantiPemain.disabled = false;
                         tombolGantiPemain.classList.remove('tombol-dinonaktifkan');
                     }
-                }, 1000);
+                }, 500);
             } else {
                 document.getElementById('info').textContent = `Pemain ${pemain[pemainSekarang].id}: Jawaban Salah.`;
                 setTimeout(() => {
@@ -520,7 +613,7 @@
                     tombolLemparDadu.classList.add('tombol-dinonaktifkan');
                     tombolGantiPemain.disabled = false;
                     tombolGantiPemain.classList.remove('tombol-dinonaktifkan');
-                }, 1000);
+                }, 500);
             }
 
             document.getElementById('input-jawaban').value = '';
@@ -550,6 +643,8 @@
         }
 
         function giliranBerikutnya() {
+            playAudio('audio-button-click');
+
             resetTimer();
             pemainSekarang = (pemainSekarang + 1) % pemain.length;
             hasilDaduSekarang = null;
@@ -566,6 +661,33 @@
             tombolGantiPemain.classList.add('tombol-dinonaktifkan');
         }
 
+        function tampilkanModalKonfirmasi(pesan, callback) {
+            const modal = document.getElementById('modal-konfirmasi');
+            const pesanElement = document.getElementById('modal-pesan');
+            const tombolIya = document.getElementById('tombol-iya');
+            const tombolTidak = document.getElementById('tombol-tidak');
+
+            pesanElement.textContent = pesan;
+            modal.style.display = 'flex';
+
+            const tombolIyaClone = tombolIya.cloneNode(true);
+            const tombolTidakClone = tombolTidak.cloneNode(true);
+            tombolIya.parentNode.replaceChild(tombolIyaClone, tombolIya);
+            tombolTidak.parentNode.replaceChild(tombolTidakClone, tombolTidak);
+
+            tombolIyaClone.addEventListener('click', () => {
+                playAudio('audio-confirm');
+                modal.style.display = 'none';
+                callback(true);
+            });
+
+            tombolTidakClone.addEventListener('click', () => {
+                playAudio('audio-button-click');
+                modal.style.display = 'none';
+                callback(false);
+            });
+        }
+
         kanvas.addEventListener('click', (event) => {
             if (!menungguPemilihanArea) return;
             const rect = kanvas.getBoundingClientRect();
@@ -573,25 +695,42 @@
             const y = event.clientY - rect.top;
             const areaTerpilih = cariAreaTerdekat(x, y);
             if (areaTerpilih && areaTerpilih.nomor === hasilDaduSekarang && areaTerpilih.pemilik === null && !(areaTerpilih.q === 0 && areaTerpilih.r === 0)) {
-                areaTerpilih.pemilik = pemainSekarang;
-                tampilkanPapan();
-                perbaruiPoinKemenangan();
-                menungguPemilihanArea = false;
-                document.getElementById('info').textContent = `Pemain ${pemain[pemainSekarang].id}: Ambil sebuah area lalu klik "Ganti Pemain"`;
+                playAudio('audio-select-area');
 
-                const tombolLemparDadu = document.getElementById('lempar-dadu');
-                const tombolGantiPemain = document.getElementById('ganti-pemain');
-                tombolLemparDadu.disabled = true;
-                tombolLemparDadu.classList.add('tombol-dinonaktifkan');
-                tombolGantiPemain.disabled = false;
-                tombolGantiPemain.classList.remove('tombol-dinonaktifkan');
+                tampilkanModalKonfirmasi(
+                    `Apakah Anda yakin ingin mengambil area dengan nomor ${areaTerpilih.nomor}?`,
+                    (konfirmasi) => {
+                        if (konfirmasi) {
+                            areaTerpilih.pemilik = pemainSekarang;
+                            tampilkanPapan();
+                            perbaruiPoinKemenangan();
+                            menungguPemilihanArea = false;
+                            document.getElementById('info').textContent = `Pemain ${pemain[pemainSekarang].id}: Area berhasil diambil. Klik "Ganti Pemain" untuk melanjutkan`;
+
+                            const tombolLemparDadu = document.getElementById('lempar-dadu');
+                            const tombolGantiPemain = document.getElementById('ganti-pemain');
+                            tombolLemparDadu.disabled = true;
+                            tombolLemparDadu.classList.add('tombol-dinonaktifkan');
+                            tombolGantiPemain.disabled = false;
+                            tombolGantiPemain.classList.remove('tombol-dinonaktifkan');
+                        } else {
+                            document.getElementById('info').textContent = `Pemain ${pemain[pemainSekarang].id}: Pemilihan area dibatalkan. Pilih area lain atau klik "Ganti Pemain"`;
+                            const tombolLemparDadu = document.getElementById('lempar-dadu');
+                            const tombolGantiPemain = document.getElementById('ganti-pemain');
+                            tombolLemparDadu.disabled = true;
+                            tombolLemparDadu.classList.add('tombol-dinonaktifkan');
+                            tombolGantiPemain.disabled = false;
+                            tombolGantiPemain.classList.remove('tombol-dinonaktifkan');
+                        }
+                    }
+                );
             }
         });
 
         document.getElementById('lempar-dadu').addEventListener('click', lemparDadu);
         document.getElementById('ganti-pemain').addEventListener('click', giliranBerikutnya);
         document.getElementById('kirim-jawaban').addEventListener('click', kirimJawaban);
-        
+
         document.getElementById('input-jawaban').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 kirimJawaban();
@@ -632,6 +771,7 @@
             tombolGantiPemain.classList.add('tombol-dinonaktifkan');
         }
 
+        initAudio();
         inisialisasiPapan();
         tampilkanPapan();
         perbaruiPoinKemenangan();
