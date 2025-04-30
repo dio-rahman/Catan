@@ -1,199 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/png" href="logo/logo_thithep.png">
-  <title>THITHEP - Home</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body {
-      background-color: #f3f4f6;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      font-family: sans-serif;
-    }
-    .container {
-      text-align: center;
-      padding: 2rem;
-      background-color: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      max-width: 600px;
-      width: 90%;
-      animation: fadeIn 0.5s ease-in;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .title {
-      font-size: 3rem;
-      font-weight: bold;
-      color: #2d3748;
-      margin-bottom: 2rem;
-    }
-    .button {
-      padding: 1rem 2rem;
-      border-radius: 8px;
-      font-size: 1.25rem;
-      color: white;
-      cursor: pointer;
-      transition: background-color 0.3s, transform 0.1s;
-    }
-    .button:hover:not(:disabled) {
-      transform: scale(1.05);
-    }
-    .button:active:not(:disabled) {
-      transform: scale(0.95);
-    }
-    #modal-konfirmasi {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      z-index: 50;
-      justify-content: center;
-      align-items: center;
-    }
-    #modal-konten {
-      background-color: white;
-      padding: 24px;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      max-width: 400px;
-      width: 90%;
-      text-align: center;
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="logo/logo_thithep.png">
+    <link href="https://fonts.googleapis.com/css2?family=Coiny&display=swap" rel="stylesheet">
+    <title>THITHEP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <h1 class="title">Thinking Of The Problem</h1>
-    <div class="flex flex-col gap-4">
-      <button id="mulai-game" class="button bg-blue-600 hover:bg-blue-700" aria-label="Mulai permainan">Mulai Game</button>
-      <button id="keluar" class="button bg-red-600 hover:bg-red-700" aria-label="Keluar dari aplikasi">Keluar</button>
+    <h1 class="title">THITHEP</h1> 
+    <h2 class="title">THINKING OF THE PROBLEM</h2>
+    <div class="flex flex-col gap-6">
+        <button id="mulai-game" class="button bg-white hover:bg-yellow-500" aria-label="Mulai permainan">Mulai</button>
+        <button id="keluar" class="button bg-white hover:bg-red-500" aria-label="Keluar dari aplikasi">Keluar</button>
     </div>
   </div>
 
-  <!-- Modal Konfirmasi untuk Keluar -->
-  <div id="modal-konfirmasi">
+    <!-- Modal Konfirmasi untuk Keluar -->
+    <div id="modal-konfirmasi">
     <div id="modal-konten">
-      <p id="modal-pesan" class="text-lg text-gray-700 mb-6">Apakah Anda yakin ingin keluar dari aplikasi?</p>
-      <div class="flex justify-center gap-4">
-        <button id="tombol-iya" class="bg-green-600 text-white px-4 py-2 rounded text-lg hover:bg-green-700" aria-label="Konfirmasi keluar">Iya</button>
-        <button id="tombol-tidak" class="bg-red-600 text-white px-4 py-2 rounded text-lg hover:bg-red-700" aria-label="Batalkan keluar">Tidak</button>
-      </div>
+        <p id="modal-pesan" class="text-lg mb-6">Apakah Anda yakin ingin keluar dari aplikasi?</p>
+        <div class="flex justify-center gap-4">
+        <button id="tombol-iya" class="bg-white px-4 py-2 rounded text-lg hover:bg-green-600" aria-label="Konfirmasi keluar">Iya</button>
+        <button id="tombol-tidak" class="bg-white px-4 py-2 rounded text-lg hover:bg-red-600" aria-label="Batalkan keluar">Tidak</button>
+        </div>
     </div>
-  </div>
+    </div>
 
-  <!-- Audio untuk Efek Klik -->
-  <audio id="audio-button-click" src="bpm/button-click.mp3" preload="auto"></audio>
-  <audio id="audio-confirm" src="bpm/confirm.mp3" preload="auto"></audio>
+    <!-- Audio untuk Efek Klik -->
+    <audio id="audio-button-click" src="bpm/button-click.mp3" preload="auto"></audio>
+    <audio id="audio-confirm" src="bpm/confirm.mp3" preload="auto"></audio>
 
-  <script>
+    <script>
     let audioLoaded = {};
 
     function initAudio() {
-      const audioElements = ['audio-button-click', 'audio-confirm'];
-      audioElements.forEach(id => {
+        const audioElements = ['audio-button-click', 'audio-confirm'];
+        audioElements.forEach(id => {
         const audio = document.getElementById(id);
         audioLoaded[id] = false;
         audio.addEventListener('canplaythrough', () => {
-          audioLoaded[id] = true;
-          console.log(`Audio ${id} loaded successfully: ${audio.src}`);
+            audioLoaded[id] = true;
+            console.log(`Audio ${id} loaded successfully: ${audio.src}`);
         });
         audio.addEventListener('error', () => {
-          console.error(`Failed to load audio: ${audio.src}`);
+            console.error(`Failed to load audio: ${audio.src}`);
         });
         audio.load();
-      });
+        });
     }
 
     function playAudio(audioId, retryCount = 0) {
-      const audio = document.getElementById(audioId);
-      if (!audio) {
+        const audio = document.getElementById(audioId);
+        if (!audio) {
         console.error(`Audio element ${audioId} not found`);
         return;
-      }
-      if (audioLoaded[audioId]) {
+        }
+        if (audioLoaded[audioId]) {
         audio.pause();
         audio.currentTime = 0;
         audio.play().catch(e => {
-          console.warn(`Failed to play audio ${audioId}: ${e.message}`);
+            console.warn(`Failed to play audio ${audioId}: ${e.message}`);
         });
-      } else if (retryCount < 2) {
+        } else if (retryCount < 2) {
         setTimeout(() => {
-          console.log(`Retrying audio ${audioId}, attempt ${retryCount + 1}`);
-          playAudio(audioId, retryCount + 1);
+            console.log(`Retrying audio ${audioId}, attempt ${retryCount + 1}`);
+            playAudio(audioId, retryCount + 1);
         }, 500);
-      } else {
+        } else {
         console.warn(`Audio ${audioId} not loaded after retries: ${audio.src}`);
-      }
+        }
     }
 
     function tampilkanModalKonfirmasi(pesan, callback) {
-      const modal = document.getElementById('modal-konfirmasi');
-      const pesanElement = document.getElementById('modal-pesan');
-      const tombolIya = document.getElementById('tombol-iya');
-      const tombolTidak = document.getElementById('tombol-tidak');
+        const modal = document.getElementById('modal-konfirmasi');
+        const pesanElement = document.getElementById('modal-pesan');
+        const tombolIya = document.getElementById('tombol-iya');
+        const tombolTidak = document.getElementById('tombol-tidak');
 
-      pesanElement.textContent = pesan;
-      modal.style.display = 'flex';
+        pesanElement.textContent = pesan;
+        modal.style.display = 'flex';
 
-      const tombolIyaClone = tombolIya.cloneNode(true);
-      const tombolTidakClone = tombolTidak.cloneNode(true);
-      tombolIya.parentNode.replaceChild(tombolIyaClone, tombolIya);
-      tombolTidak.parentNode.replaceChild(tombolTidakClone, tombolTidak);
+        const tombolIyaClone = tombolIya.cloneNode(true);
+        const tombolTidakClone = tombolTidak.cloneNode(true);
+        tombolIya.parentNode.replaceChild(tombolIyaClone, tombolIya);
+        tombolTidak.parentNode.replaceChild(tombolTidakClone, tombolTidak);
 
-      tombolIyaClone.addEventListener('click', () => {
+        tombolIyaClone.addEventListener('click', () => {
         playAudio('audio-confirm');
         modal.style.display = 'none';
         callback(true);
-      });
+        });
 
-      tombolTidakClone.addEventListener('click', () => {
+        tombolTidakClone.addEventListener('click', () => {
         playAudio('audio-button-click');
         modal.style.display = 'none';
         callback(false);
-      });
+        });
     }
 
     document.getElementById('mulai-game').addEventListener('click', () => {
-      playAudio('audio-button-click');
-      window.location.href = 'index.html';
+        playAudio('audio-button-click');
+        window.location.href = 'index.html';
     });
 
     document.getElementById('keluar').addEventListener('click', () => {
-      playAudio('audio-button-click');
-      tampilkanModalKonfirmasi('Apakah Anda yakin ingin keluar dari aplikasi?', (konfirmasi) => {
+        playAudio('audio-button-click');
+        tampilkanModalKonfirmasi('Apakah Anda yakin ingin keluar dari aplikasi?', (konfirmasi) => {
         if (konfirmasi) {
-          window.close();
-          setTimeout(() => {
+            window.close();
+            setTimeout(() => {
             alert('Jika aplikasi tidak tertutup, silakan tutup tab atau jendela browser secara manual.');
-          }, 500);
+            }, 500);
         }
-      });
+        });
     });
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
+        if (e.key === 'Enter') {
         const mulaiGame = document.getElementById('mulai-game');
         if (document.activeElement === mulaiGame) {
-          mulaiGame.click();
+            mulaiGame.click();
         } else {
-          mulaiGame.focus();
+            mulaiGame.focus();
         }
-      }
+        }
     });
 
     initAudio();
-  </script>
+    </script>
 </body>
 </html>
