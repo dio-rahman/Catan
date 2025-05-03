@@ -10,23 +10,22 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="flex flex-col items-center min-h-screen font-[Coiny]">
-    <h1 class="text-4xl mt-6 mb-8">THINKING OF THE PROBLEM</h1>
+    <img src="logo/logo_thithep3.png" alt="Logo THITHEP" class="logo-thithep mx-auto">
     <div class="flex flex-row gap-4">
         <div class="relative">
             <canvas id="papan" width="700" height="700" class="shadow-lg" aria-label="Papan permainan"></canvas>
             <div id="poin-menang" class="text-base mt-4"></div>
-            <div id="game-over-container">
-                <div id="game-over-content">
-                    <h2 class="text-2xl mb-4">Permainan Selesai!</h2>
+            <div id="game-over-container" class="hidden">
+                <div id="game-over-content" class="bg-[#cecece] p-6 rounded-lg shadow-lg">
+                    <h2 class="text-2xl mb-4" style="color: #000000;">Terima Kasih Telah Bermain</h2>
                     <div id="ranking-text" class="text-lg mb-6"></div>
                     <div class="flex justify-center gap-4">
-                        <button id="tombol-selesai" class="bg-white px-6 py-3 rounded text-lg hover:bg-green-700" disabled aria-label="Kembali ke halaman utama">Selesai</button>
-                        <button id="tombol-main-lagi" class="bg-white px-6 py-3 rounded text-lg hover:bg-orange-700" disabled aria-label="Main lagi">Main Lagi</button>
+                        <button id="tombol-selesai" class="bg-black px-6 py-3 rounded text-lg hover:bg-green-700" disabled aria-label="Kembali ke halaman utama">Selesai</button>
+                        <button id="tombol-main-lagi" class="bg-black px-6 py-3 rounded text-lg hover:bg-orange-700" disabled aria-label="Main lagi">Main Lagi</button>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Bagian kanan: Kontrol permainan -->
         <div class="kontrol-container">
             <div id="kontrol" class="rounded-lg shadow-md p-6 bg-[#1a1a1a]">
                 <div id="timer-bar-container" class="hidden">
@@ -67,7 +66,7 @@
                     </div>
                 </div>
                 <div id="hasil-dadu" class="text-xl mt-6"></div>
-                <div id="kontainer-pertanyaan" class="mt-6">
+                <div id="kontainer-pertanyaan" class="mt-6 hidden">
                     <div id="teks-pertanyaan" class="text-xl"></div>
                     <input type="text" id="input-jawaban" class="border p-3 rounded mt-3 w-full text-lg font-[Coiny]" placeholder="Jawaban" aria-label="Masukkan jawaban">
                     <button id="kirim-jawaban" class="bg-green-600 px-6 py-3 rounded text-lg hover:bg-green-700 mt-3 disabled:tombol-dinonaktifkan" aria-label="Kirim jawaban">Kirim Jawaban</button>
@@ -107,18 +106,13 @@
         const tataLetakPapan = [
             { q: -2, r: 0 }, { q: -2, r: 1 }, { q: -2, r: 2 },
             { q: -1, r: -1 }, { q: -1, r: 0 }, { q: -1, r: 1 }, { q: -1, r: 2 },
-            { q: 0, r: -2 }, { q: 0, r: -1 }, { q: 0, r: 0 }, { q: 0, r: 1 }, { q: 0, r: 2 },
+            { q: 0, r: -2 }, { q: 0, r: -1 }, { q: 0, r: 0 }, { q: 0, r: 2 }, { q: 0, r: 1 },
             { q: 1, r: -2 }, { q: 1, r: -1 }, { q: 1, r: 0 }, { q: 1, r: 1 },
             { q: 2, r: -2 }, { q: 2, r: -1 }, { q: 2, r: 0 }
         ];
 
         const nomorAreaTetap = [
-            1, 2, 3,
-            4, 5, 6,
-            7, 8, 9,
-            10, 11, 12,
-            13, 14, 15,
-            16, 17, 18 
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18
         ];
 
         const petaWarna = {
@@ -137,18 +131,7 @@
 
         const petaGambar = {};
         let assetError = false;
-        for (let i = 1; i <= 18; i++) {
-            petaGambar[i] = new Image();
-            petaGambar[i].src = `gambar-area/gambar-area-${i}.png`;
-            petaGambar[i].onerror = () => {
-                console.error(`Gagal memuat gambar: gambar-area/gambar-area-${i}.png`);
-                assetError = true;
-                document.getElementById('asset-error').style.display = 'block';
-            };
-            petaGambar[i].onload = () => {
-                console.log(`Gambar gambar-area-${i}.png berhasil dimuat`);
-            };
-        }
+        let failedAssets = [];
 
         const pemain = [
             { id: 1, warna: '#cc0000', poinKemenangan: 0, waktuMencapaiSkor: null },
@@ -158,7 +141,7 @@
         ];
 
         const pertanyaan = [
-            { id: 1, teks: "Mengapa manusia tidak bisa hidup tanpa alam, tetapi alam bisa hidup tanpa manusia? Apa makna dari pernyataan ini menurutmu?", kataKunci: [";","membutuhkan", "bergantung", "butuh", "tergantung", "kebutuhan", "alam", "lingkungan", "sumber daya", "hidup", "ketergantungan", "perlukan", "diperlukan", "sumber kehidupan", "ekosistem", "manusia"], area: 1 },
+            { id: 1, teks: "Mengapa manusia tidak bisa hidup tanpa alam, tetapi alam bisa hidup tanpa manusia? Apa makna dari pernyataan ini menurutmu?", kataKunci: [";", "membutuhkan", "bergantung", "butuh", "tergantung", "kebutuhan", "alam", "lingkungan", "sumber daya", "hidup", "ketergantungan", "perlukan", "diperlukan", "sumber kehidupan", "ekosistem", "manusia"], area: 1 },
             { id: 2, teks: "Bagaimana dampak penebangan pohon secara liar terhadap lingkungan?", kataKunci: [";", "kerusakan", "hutan", "membutuhkan", "rusak", "merusak", "dirusak", "kehutanan", "butuh", "deforestasi", "lingkungan", "erosi", "banjir", "tanah longsor", "ekosistem", "pencemaran", "kehancuran", "degradasi", "kehilangan habitat", "flora", "fauna", "pohon", "tebang", "illegal logging", "penggundulan"], area: 1 },
             { id: 3, teks: "Apa dampak dari polusi udara terhadap kesehatan manusia dan bagaimana cara mengatasinya?", kataKunci: [";", "gangguan pernapasan", "asma", "mengobati", "menghindari", "pernafasan", "penyakit paru", "obati", "hindari", "polusi", "udara", "kesehatan", "infeksi saluran pernapasan", "masker", "pencemaran", "sesak napas", "bronkitis", "kanker paru", "filter udara", "kurangi emisi", "kualitas udara", "polutan", "kabut asap", "respirasi"], area: 1 },
             { id: 4, teks: "Bagaimana perubahan alam akibat ulah manusia bisa memengaruhi bencana alam seperti banjir atau tanah longsor? Jelaskan hubungan keduanya.", kataKunci: [";", "sampah", "pencemaran", "kerusakan", "limbah", "polusi", "rusak", "merusak", "banjir", "tanah longsor", "deforestasi", "erosi", "lingkungan", "alam", "penggundulan hutan", "penumpukan sampah", "saluran tersumbat", "degradasi tanah", "bencana", "aktivitas manusia", "pengrusakan", "limpasan air"], area: 2 },
@@ -208,11 +191,12 @@
                     console.log(`Audio ${id} loaded successfully: ${audio.src}`);
                 });
                 audio.addEventListener('error', () => {
+                    console.error(`Failed to load audio: ${audio.src}`);
+                    failedAssets.push(audio.src);
                     if (!audioErrorShown) {
                         document.getElementById('audio-error').style.display = 'block';
                         audioErrorShown = true;
                     }
-                    console.error(`Failed to load audio: ${audio.src}`);
                 });
                 audio.load();
             });
@@ -240,6 +224,51 @@
             }
         }
 
+        function preloadAssets() {
+            return new Promise((resolve) => {
+                let loadedImages = 0;
+                let loadedAudio = 0;
+                const totalImages = 18;
+                const totalAudio = audioElements.length;
+
+                for (let i = 1; i <= 18; i++) {
+                    petaGambar[i] = new Image();
+                    petaGambar[i].src = `gambar-area/gambar-area-${i}.png`;
+                    petaGambar[i].onload = () => {
+                        console.log(`Gambar gambar-area-${i}.png berhasil dimuat`);
+                        loadedImages++;
+                        if (loadedImages + failedAssets.length === totalImages && loadedAudio === totalAudio) {
+                            resolve();
+                        }
+                    };
+                    petaGambar[i].onerror = () => {
+                        console.error(`Gagal memuat gambar: gambar-area/gambar-area-${i}.png`);
+                        failedAssets.push(`gambar-area/gambar-area-${i}.png`);
+                        assetError = true;
+                        if (loadedImages + failedAssets.length === totalImages && loadedAudio === totalAudio) {
+                            resolve();
+                        }
+                    };
+                }
+
+                audioElements.forEach(id => {
+                    const audio = document.getElementById(id);
+                    audio.addEventListener('canplaythrough', () => {
+                        loadedAudio++;
+                        if (loadedImages + failedAssets.length === totalImages && loadedAudio === totalAudio) {
+                            resolve();
+                        }
+                    }, { once: true });
+                    audio.addEventListener('error', () => {
+                        loadedAudio++;
+                        if (loadedImages + failedAssets.length === totalImages && loadedAudio === totalAudio) {
+                            resolve();
+                        }
+                    }, { once: true });
+                });
+            });
+        }
+
         function kocok(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -252,6 +281,30 @@
             const x = jariJariHeksagon * (Math.sqrt(3) * q + Math.sqrt(3) / 2 * r) + kanvas.width / 2;
             const y = jariJariHeksagon * (3 / 2 * r) + kanvas.height / 2;
             return { x, y };
+        }
+
+        function pikselKeHeksagon(px, py) {
+            const adjustedPx = px - kanvas.width / 2;
+            const adjustedPy = py - kanvas.height / 2;
+            const q = (Math.sqrt(3) / 3 * adjustedPx - adjustedPy / 3) / jariJariHeksagon;
+            const r = (2 / 3 * adjustedPy) / jariJariHeksagon;
+            return roundHeksagon(q, r);
+        }
+
+        function roundHeksagon(q, r) {
+            const s = -q - r;
+            let rq = Math.round(q);
+            let rr = Math.round(r);
+            let rs = Math.round(s);
+            const qDiff = Math.abs(rq - q);
+            const rDiff = Math.abs(rr - r);
+            const sDiff = Math.abs(rs - s);
+            if (qDiff > rDiff && qDiff > sDiff) {
+                rq = -rr - rs;
+            } else if (rDiff > sDiff) {
+                rr = -rq - rs;
+            }
+            return { q: rq, r: rr };
         }
 
         function gambarTitikDadu(konteks, x, y, nilai, radiusTitik) {
@@ -303,7 +356,7 @@
                 konteks.closePath();
                 konteks.fillStyle = 'black';
                 konteks.fill();
-                konteks.strokeStyle = '#2d3748';
+                konteks.strokeStyle = 'white';
                 konteks.lineWidth = 2;
                 konteks.stroke();
 
@@ -324,25 +377,25 @@
         }
 
         function buatHeksagon(x, y, warna, adalahPusat, itemArea) {
-            try {
-                konteks.beginPath();
-                for (let i = 0; i < 6; i++) {
-                    const sudut = Math.PI / 180 * (60 * i - 30);
-                    const px = x + jariJariHeksagon * Math.cos(sudut);
-                    const py = y + jariJariHeksagon * Math.sin(sudut);
-                    if (i === 0) konteks.moveTo(px, py);
-                    else konteks.lineTo(px, py);
-                }
-                konteks.closePath();
-                konteks.fillStyle = warna || '#ffffff';
-                konteks.fill();
-                konteks.strokeStyle = '#2d3748';
-                konteks.lineWidth = 2;
-                konteks.stroke();
+            konteks.beginPath();
+            for (let i = 0; i < 6; i++) {
+                const sudut = Math.PI / 180 * (60 * i - 30);
+                const px = x + jariJariHeksagon * Math.cos(sudut);
+                const py = y + jariJariHeksagon * Math.sin(sudut);
+                if (i === 0) konteks.moveTo(px, py);
+                else konteks.lineTo(px, py);
+            }
+            konteks.closePath();
+            konteks.fillStyle = warna || '#ffffff';
+            konteks.fill();
+            konteks.strokeStyle = '#ffffff';
+            konteks.lineWidth = 2;
+            konteks.stroke();
 
-                if (!adalahPusat && itemArea.nomor && petaGambar[itemArea.nomor]) {
-                    const gambar = petaGambar[itemArea.nomor];
-                    if (gambar.complete && gambar.naturalWidth !== 0) {
+            if (!adalahPusat && itemArea.nomor && petaGambar[itemArea.nomor]) {
+                const gambar = petaGambar[itemArea.nomor];
+                if (gambar.complete && gambar.naturalWidth !== 0) {
+                    try {
                         const ukuranGambar = jariJariHeksagon * 1.5;
                         konteks.save();
                         konteks.beginPath();
@@ -365,74 +418,53 @@
                         );
                         konteks.globalAlpha = 1.0;
                         konteks.restore();
+                    } catch (e) {
+                        console.error(`Error drawing image for nomor ${itemArea.nomor} at (${x}, ${y}):`, e);
                     }
                 }
+            }
 
-                let nomorTampilan = '';
-                if (!adalahPusat && itemArea.areaNomor) {
-                    nomorTampilan = itemArea.areaNomor.toString();
-                }
+            let nomorTampilan = '';
+            if (!adalahPusat && itemArea.areaNomor) {
+                nomorTampilan = itemArea.nomor.toString();
+            }
 
-                if (nomorTampilan && !adalahPusat) {
-                    konteks.fillStyle = '#FFFFFF';
-                    konteks.strokeStyle = '#000';
-                    konteks.lineWidth = 7;
-                    konteks.font = `${ukuranTeks * 1.2}px Coiny`;
-                    konteks.textAlign = 'center';
-                    konteks.textBaseline = 'middle';
-                    konteks.strokeText(nomorTampilan, x, y);
-                    konteks.fillText(nomorTampilan, x, y);
-                }
+            if (nomorTampilan && !adalahPusat) {
+                konteks.fillStyle = '#FFFFFF';
+                konteks.strokeStyle = '#000';
+                konteks.lineWidth = 7;
+                konteks.font = `${ukuranTeks * 1.2}px Coiny`;
+                konteks.textAlign = 'center';
+                konteks.textBaseline = 'middle';
+                konteks.strokeText(nomorTampilan, x, y);
+                konteks.fillText(nomorTampilan, x, y);
+            }
 
-                if (adalahPusat && hasilDaduSekarang) {
-                    gambarTitikDadu(konteks, x, y, hasilDaduSekarang, 10);
-                }
+            if (adalahPusat && hasilDaduSekarang) {
+                gambarTitikDadu(konteks, x, y, hasilDaduSekarang, 10);
+            }
 
-                if (itemArea.pemilik !== null) {
-                    konteks.strokeStyle = pemain[itemArea.pemilik].warna;
-                    konteks.lineWidth = 15;
-                    konteks.beginPath();
-                    konteks.arc(x, y, ukuranTanda / 2, 0, 2 * Math.PI);
-                    konteks.stroke();
-                }
-            } catch (e) {
-                console.error(`Error rendering heksagon at (${x}, ${y}):`, e);
-                document.getElementById('asset-error').style.display = 'block';
+            if (itemArea.pemilik !== null) {
+                konteks.strokeStyle = pemain[itemArea.pemilik].warna;
+                konteks.lineWidth = 15;
+                konteks.beginPath();
+                konteks.arc(x, y, ukuranTanda / 2, 0, 2 * Math.PI);
+                konteks.stroke();
             }
         }
 
         function tampilkanPapan() {
             if (gameOver) return;
-            try {
-                konteks.clearRect(0, 0, kanvas.width, kanvas.height);
-                if (!area || area.length === 0) {
-                    console.warn('Area array is empty or not initialized');
-                    document.getElementById('asset-error').style.display = 'block';
-                    return;
-                }
-                area.forEach(itemArea => {
-                    const { x, y } = heksagonKePiksel(itemArea.q, itemArea.r);
-                    const adalahPusat = itemArea.q === 0 && itemArea.r === 0;
-                    buatHeksagon(x, y, itemArea.warna, adalahPusat, itemArea);
-                });
-            } catch (e) {
-                console.error('Error rendering papan:', e);
-                document.getElementById('asset-error').style.display = 'block';
+            konteks.clearRect(0, 0, kanvas.width, kanvas.height);
+            if (!area || area.length === 0) {
+                console.warn('Area array is empty or not initialized');
+                return;
             }
-        }
-
-        function cariAreaTerdekat(x, y) {
-            let areaTerdekat = null;
-            let jarakMinimum = Infinity;
             area.forEach(itemArea => {
-                const { x: tx, y: ty } = heksagonKePiksel(itemArea.q, itemArea.r);
-                const jarak = Math.hypot(tx - x, ty - y);
-                if (jarak < jarakMinimum && jarak < jariJariHeksagon * 1.2) {
-                    jarakMinimum = jarak;
-                    areaTerdekat = itemArea;
-                }
+                const { x, y } = heksagonKePiksel(itemArea.q, itemArea.r);
+                const adalahPusat = itemArea.q === 0 && itemArea.r === 0;
+                buatHeksagon(x, y, itemArea.warna, adalahPusat, itemArea);
             });
-            return areaTerdekat;
         }
 
         function updateTimer() {
@@ -618,7 +650,7 @@
             animasiKocokanDadu(x, y, dadu, 2000, () => {
                 hasilDaduSekarang = dadu;
                 console.log(`Hasil dadu sekarang: ${hasilDaduSekarang} (${petaNamaArea[hasilDaduSekarang]})`);
-                elemenHasilDadu.textContent = `Warna Area: ${petaNamaArea[dadu]}`;
+                elemenHasilDadu.textContent = `warna area: ${petaNamaArea[dadu]}`;
                 setTimeout(() => elemenHasilDadu.classList.remove('kedip'), 2000);
 
                 const pertanyaanArea = pertanyaanTersedia.filter(q => q.area === dadu);
@@ -636,6 +668,9 @@
 
                 document.getElementById('kontainer-pertanyaan').style.display = 'block';
                 document.getElementById('teks-pertanyaan').textContent = pertanyaanSaatIni.teks;
+                // Tampilkan input dan tombol kirim saat pertanyaan baru
+                document.getElementById('input-jawaban').style.display = 'block';
+                document.getElementById('kirim-jawaban').style.display = 'block';
 
                 disableAllPlayerButtons();
                 const tombolKirimJawaban = document.getElementById('kirim-jawaban');
@@ -666,8 +701,11 @@
                 const indeks = pertanyaanTersedia.findIndex(q => q.id === pertanyaanSaatIni.id);
                 pertanyaanTersedia.splice(indeks, 1);
 
+                // Sembunyikan input dan tombol kirim, tetapi biarkan teks pertanyaan tetap terlihat
+                document.getElementById('input-jawaban').style.display = 'none';
+                document.getElementById('kirim-jawaban').style.display = 'none';
+
                 setTimeout(() => {
-                    document.getElementById('kontainer-pertanyaan').style.display = 'none';
                     let areaBelumDiambil = area.filter(t => t.areaNomor === hasilDaduSekarang && t.pemilik === null && !(t.q === 0 && t.r === 0));
                     if (areaBelumDiambil.length > 0) {
                         menungguPemilihanArea = true;
@@ -676,6 +714,7 @@
                         disableAllPlayerButtons();
                     } else {
                         document.getElementById('info').textContent = `Pemain ${pemain[pemainSekarang].id}: Tidak ada area untuk diambil. Tekan "Ganti Pemain"`;
+                        document.getElementById('kontainer-pertanyaan').style.display = 'none';
                         enableGantiPemainForCurrentPlayer();
                     }
                 }, 500);
@@ -692,56 +731,46 @@
         }
 
         function perbaruiPoinKemenangan() {
-            try {
-                pemain.forEach(itemPemain => {
-                    const poinLama = itemPemain.poinKemenangan;
-                    itemPemain.poinKemenangan = area.filter(t => t.pemilik === pemain.indexOf(itemPemain)).length;
-                    if (itemPemain.poinKemenangan > poinLama && itemPemain.waktuMencapaiSkor === null) {
-                        itemPemain.waktuMencapaiSkor = Date.now() - waktuMulaiPermainan;
-                    }
-                });
-                let teksPoin = '';
-                pemain.forEach(itemPemain => {
-                    teksPoin += `<div class="flex items-center mb-1"><span class="w-4 h-4 mr-2 inline-block" style="background-color: ${itemPemain.warna};"></span>Pemain ${itemPemain.id}: ${itemPemain.poinKemenangan} Poin</div>`;
-                });
-                document.getElementById('poin-menang').innerHTML = teksPoin;
-
-                const areaTersedia = area.filter(t => t.pemilik === null && !(t.q === 0 && t.r === 0));
-                if (areaTersedia.length === 0) {
-                    cekSelesaiPermainan();
+            pemain.forEach(itemPemain => {
+                const poinLama = itemPemain.poinKemenangan;
+                itemPemain.poinKemenangan = area.filter(t => t.pemilik === pemain.indexOf(itemPemain)).length;
+                if (itemPemain.poinKemenangan > poinLama && itemPemain.waktuMencapaiSkor === null) {
+                    itemPemain.waktuMencapaiSkor = Date.now() - waktuMulaiPermainan;
                 }
-            } catch (e) {
-                console.error('Error updating poin kemenangan:', e);
-                document.getElementById('asset-error').style.display = 'block';
+            });
+            let teksPoin = '';
+            pemain.forEach(itemPemain => {
+                teksPoin += `<div class="flex items-center mb-1"><span class="w-4 h-4 mr-2 inline-block" style="background-color: ${itemPemain.warna};"></span>Pemain ${itemPemain.id}: ${itemPemain.poinKemenangan} Poin</div>`;
+            });
+            document.getElementById('poin-menang').innerHTML = teksPoin;
+
+            const areaTersedia = area.filter(t => t.pemilik === null && !(t.q === 0 && t.r === 0));
+            if (areaTersedia.length === 0) {
+                cekSelesaiPermainan();
             }
         }
 
         function cekSelesaiPermainan() {
-            try {
-                const areaTersedia = area.filter(t => t.pemilik === null && !(t.q === 0 && t.r === 0));
-                if (areaTersedia.length === 0 || pertanyaanTersedia.length === 0) {
-                    gameOver = true;
-                    nonaktifkanSemuaTombolKontrol();
-                    const ranking = pemain.slice().sort((a, b) => {
-                        if (b.poinKemenangan !== a.poinKemenangan) {
-                            return b.poinKemenangan - a.poinKemenangan;
-                        }
-                        return (a.waktuMencapaiSkor || Infinity) - (b.waktuMencapaiSkor || Infinity);
-                    });
-                    let rankingText = '';
-                    ranking.forEach((p, index) => {
-                        rankingText += `Juara ${index + 1}: Pemain ${p.id} dengan ${p.poinKemenangan} Poin<br>`;
-                    });
-                    document.getElementById('ranking-text').innerHTML = rankingText;
-                    document.getElementById('game-over-container').style.display = 'flex';
-                    document.getElementById('info').textContent = 'Permainan Selesai!';
-                    document.getElementById('tombol-selesai').disabled = false;
-                    document.getElementById('tombol-main-lagi').disabled = false;
-                    konteks.clearRect(0, 0, kanvas.width, kanvas.height);
-                }
-            } catch (e) {
-                console.error('Error in cekSelesaiPermainan:', e);
-                document.getElementById('asset-error').style.display = 'block';
+            const areaTersedia = area.filter(t => t.pemilik === null && !(t.q === 0 && t.r === 0));
+            if (areaTersedia.length === 0 || pertanyaanTersedia.length === 0) {
+                gameOver = true;
+                nonaktifkanSemuaTombolKontrol();
+                const ranking = pemain.slice().sort((a, b) => {
+                    if (b.poinKemenangan !== a.poinKemenangan) {
+                        return b.poinKemenangan - a.poinKemenangan;
+                    }
+                    return (a.waktuMencapaiSkor || Infinity) - (b.waktuMencapaiSkor || Infinity);
+                });
+                let rankingText = '';
+                ranking.forEach((p, index) => {
+                    rankingText += `Juara ${index + 1}: Pemain ${p.id} dengan ${p.poinKemenangan} Poin<br>`;
+                });
+                document.getElementById('ranking-text').innerHTML = rankingText;
+                document.getElementById('game-over-container').style.display = 'flex';
+                document.getElementById('info').textContent = 'Permainan Selesai!';
+                document.getElementById('tombol-selesai').disabled = false;
+                document.getElementById('tombol-main-lagi').disabled = false;
+                konteks.clearRect(0, 0, kanvas.width, kanvas.height);
             }
         }
 
@@ -756,6 +785,9 @@
             document.getElementById('kontainer-pertanyaan').style.display = 'none';
             document.getElementById('input-jawaban').value = '';
             document.getElementById('hasil-dadu').textContent = '';
+            // Pastikan input dan tombol kirim ditampilkan kembali untuk giliran baru
+            document.getElementById('input-jawaban').style.display = 'block';
+            document.getElementById('kirim-jawaban').style.display = 'block';
             tampilkanPapan();
 
             enableLemparDaduForCurrentPlayer();
@@ -778,12 +810,16 @@
             tombolIyaClone.addEventListener('click', () => {
                 playAudio('audio-confirm');
                 modal.style.display = 'none';
+                document.getElementById('kontainer-pertanyaan').style.display = 'none';
                 callback(true);
             });
 
             tombolTidakClone.addEventListener('click', () => {
                 playAudio('audio-button-click');
                 modal.style.display = 'none';
+                // Pastikan input dan tombol kirim tetap tersembunyi
+                document.getElementById('input-jawaban').style.display = 'none';
+                document.getElementById('kirim-jawaban').style.display = 'none';
                 callback(false);
             });
         }
@@ -797,8 +833,9 @@
             const rect = kanvas.getBoundingClientRect();
             const x = event.clientX - rect.left;
             const y = event.clientY - rect.top;
-            const areaTerpilih = cariAreaTerdekat(x, y);
-            console.log(`Klik pada koordinat (${x}, ${y}), area terpilih:`, areaTerpilih ? { q: areaTerpilih.q, r: areaTerpilih.r, nomor: areaTerpilih.nomor, areaNomor: areaTerpilih.areaNomor, pemilik: areaTerpilih.pemilik } : 'Tidak ada area terdeteksi');
+            const { q, r } = pikselKeHeksagon(x, y);
+            const areaTerpilih = area.find(a => a.q === q && a.r === r);
+            console.log(`Klik pada koordinat (${x}, ${y}), koordinat heksagon (${q}, ${r}), area terpilih:`, areaTerpilih ? { q: areaTerpilih.q, r: areaTerpilih.r, nomor: areaTerpilih.nomor, areaNomor: areaTerpilih.areaNomor, pemilik: areaTerpilih.pemilik } : 'Tidak ada area terdeteksi');
             if (areaTerpilih && areaTerpilih.areaNomor === hasilDaduSekarang && areaTerpilih.pemilik === null && !(areaTerpilih.q === 0 && areaTerpilih.r === 0)) {
                 console.log(`Area valid dipilih: nomor ${areaTerpilih.nomor}, areaNomor ${areaTerpilih.areaNomor}, cocok dengan dadu ${hasilDaduSekarang}`);
                 playAudio('audio-select-area');
@@ -897,63 +934,70 @@
         });
 
         function inisialisasiPapan() {
+            area = [];
+            const shuffledNomorArea = [...nomorAreaTetap];
+            kocok(shuffledNomorArea);
+            let nomorIndex = 0;
+
+            tataLetakPapan.forEach((heks) => {
+                if (heks.q === 0 && heks.r === 0) {
+                    area.push({
+                        q: heks.q,
+                        r: heks.r,
+                        nomor: null,
+                        areaNomor: null,
+                        warna: 'black',
+                        pemilik: null
+                    });
+                } else {
+                    const nomorArea = shuffledNomorArea[nomorIndex];
+                    const pertanyaanArea = pertanyaan.find(p => p.id === nomorArea)?.area;
+                    const warnaArea = petaWarna[pertanyaanArea] || '#ffffff';
+                    area.push({
+                        q: heks.q,
+                        r: heks.r,
+                        nomor: nomorArea,
+                        areaNomor: pertanyaanArea,
+                        warna: warnaArea,
+                        pemilik: null
+                    });
+                    nomorIndex++;
+                }
+            });
+
+            console.log('Areas initialized:', area.map(a => ({ q: a.q, r: a.r, nomor: a.nomor, areaNomor: a.areaNomor, warna: a.warna })));
+
+            pertanyaanTersedia = [...pertanyaan];
+            document.getElementById('info').textContent = `Pemain ${pemain[pemainSekarang].id}: Lempar dadu`;
+            waktuMulaiPermainan = Date.now();
+            document.getElementById('tombol-selesai').disabled = true;
+            document.getElementById('tombol-main-lagi').disabled = true;
+            gameOver = false;
+            enableLemparDaduForCurrentPlayer();
+            document.getElementById('kirim-jawaban').disabled = true;
+            document.getElementById('kirim-jawaban').classList.add('tombol-dinonaktifkan');
+        }
+
+        async function initializeGame() {
             try {
-                area = [];
-                let nomorIndex = 0;
-
-                tataLetakPapan.forEach((heks) => {
-                    if (heks.q === 0 && heks.r === 0) {
-                        area.push({
-                            q: heks.q,
-                            r: heks.r,
-                            nomor: null,
-                            areaNomor: null,
-                            warna: 'black',
-                            pemilik: null
-                        });
-                    } else {
-                        const nomorArea = nomorAreaTetap[nomorIndex];
-                        const pertanyaanArea = pertanyaan.find(p => p.id === nomorArea)?.area;
-                        const warnaArea = petaWarna[pertanyaanArea] || '#ffffff';
-                        area.push({
-                            q: heks.q,
-                            r: heks.r,
-                            nomor: nomorArea,
-                            areaNomor: pertanyaanArea,
-                            warna: warnaArea,
-                            pemilik: null
-                        });
-                        nomorIndex++;
-                    }
-                });
-
-                console.log('Areas initialized:', area.map(a => ({ q: a.q, r: a.r, nomor: a.nomor, areaNomor: a.areaNomor, warna: a.warna })));
-
-                pertanyaanTersedia = [...pertanyaan];
-                document.getElementById('info').textContent = `Pemain ${pemain[pemainSekarang].id}: Lempar dadu`;
-                waktuMulaiPermainan = Date.now();
-                document.getElementById('tombol-selesai').disabled = true;
-                document.getElementById('tombol-main-lagi').disabled = true;
-                gameOver = false;
-                enableLemparDaduForCurrentPlayer();
-                document.getElementById('kirim-jawaban').disabled = true;
-                document.getElementById('kirim-jawaban').classList.add('tombol-dinonaktifkan');
+                initAudio();
+                await preloadAssets();
+                if (assetError || failedAssets.length > 0) {
+                    console.warn(`Some assets failed to load: ${failedAssets.join(', ')}`);
+                    document.getElementById('asset-error').style.display = 'block';
+                }
+                inisialisasiPapan();
+                tampilkanPapan();
+                perbaruiPoinKemenangan();
+                setTimeout(tampilkanPapan, 100);
             } catch (e) {
-                console.error('Error initializing papan:', e);
+                console.error('Error during game initialization:', e);
                 document.getElementById('asset-error').style.display = 'block';
             }
         }
 
-        try {
-            initAudio();
-            inisialisasiPapan();
-            tampilkanPapan();
-            perbaruiPoinKemenangan();
-            setTimeout(tampilkanPapan, 100);
-        } catch (e) {
-            console.error('Error during game initialization:', e);
-            document.getElementById('asset-error').style.display = 'block';
-        }
+        initializeGame();
     </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93a323f11f614576',t:'MTc0NjMxMDc3MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 </html>
