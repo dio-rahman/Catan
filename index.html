@@ -419,14 +419,14 @@
                         konteks.globalAlpha = 1.0;
                         konteks.restore();
                     } catch (e) {
-                        console.error(`Error drawing image for nomor ${itemArea.nomor} at (${x}, ${y}):`, e);
+                        console.error(`Error drawing image for nomor ${itemArea.nomor}:`, e);
                     }
                 }
             }
 
             let nomorTampilan = '';
             if (!adalahPusat && itemArea.areaNomor) {
-                nomorTampilan = itemArea.nomor.toString();
+                nomorTampilan = itemArea.areaNomor.toString();
             }
 
             if (nomorTampilan && !adalahPusat) {
@@ -668,7 +668,6 @@
 
                 document.getElementById('kontainer-pertanyaan').style.display = 'block';
                 document.getElementById('teks-pertanyaan').textContent = pertanyaanSaatIni.teks;
-                // Tampilkan input dan tombol kirim saat pertanyaan baru
                 document.getElementById('input-jawaban').style.display = 'block';
                 document.getElementById('kirim-jawaban').style.display = 'block';
 
@@ -701,7 +700,6 @@
                 const indeks = pertanyaanTersedia.findIndex(q => q.id === pertanyaanSaatIni.id);
                 pertanyaanTersedia.splice(indeks, 1);
 
-                // Sembunyikan input dan tombol kirim, tetapi biarkan teks pertanyaan tetap terlihat
                 document.getElementById('input-jawaban').style.display = 'none';
                 document.getElementById('kirim-jawaban').style.display = 'none';
 
@@ -785,7 +783,6 @@
             document.getElementById('kontainer-pertanyaan').style.display = 'none';
             document.getElementById('input-jawaban').value = '';
             document.getElementById('hasil-dadu').textContent = '';
-            // Pastikan input dan tombol kirim ditampilkan kembali untuk giliran baru
             document.getElementById('input-jawaban').style.display = 'block';
             document.getElementById('kirim-jawaban').style.display = 'block';
             tampilkanPapan();
@@ -817,7 +814,6 @@
             tombolTidakClone.addEventListener('click', () => {
                 playAudio('audio-button-click');
                 modal.style.display = 'none';
-                // Pastikan input dan tombol kirim tetap tersembunyi
                 document.getElementById('input-jawaban').style.display = 'none';
                 document.getElementById('kirim-jawaban').style.display = 'none';
                 callback(false);
@@ -998,6 +994,5 @@
 
         initializeGame();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93a323f11f614576',t:'MTc0NjMxMDc3MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 </html>
