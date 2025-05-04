@@ -72,39 +72,39 @@ body {
 
 /* Specific button hover styles */
 #mulai-game:hover {
-  background-color: #f59e0b !important; /* Tailwind yellow-500 */
+  background-color: #f59e0b !important;
 }
 
 #keluar:hover {
-  background-color: #ef4444 !important; /* Tailwind red-500 */
+  background-color: #ef4444 !important;
 }
 
 #siap:hover {
-  background-color: #22c55e !important; /* Tailwind green-500 */
+  background-color: #22c55e !important;
 }
 
 #kembali:hover {
-  background-color: #ef4444 !important; /* Tailwind red-500 */
+  background-color: #ef4444 !important;
 }
 
 #tombol-selesai:hover {
-  background-color: #15803d !important; /* Tailwind green-700 */
+  background-color: #15803d !important;
 }
 
 #tombol-main-lagi:hover {
-  background-color: #c2410c !important; /* Tailwind orange-700 */
+  background-color: #c2410c !important;
 }
 
 .lempar-dadu:hover {
-  background-color: #f59e0b !important; /* Tailwind yellow-500 */
+  background-color: #f59e0b !important;
 }
 
 .ganti-pemain:hover {
-  background-color: #991b1b !important; /* Tailwind red-800 */
+  background-color: #991b1b !important;
 }
 
 #kirim-jawaban:hover {
-  background-color: #15803d !important; /* Tailwind green-700 */
+  background-color: #15803d !important;
 }
 
 #modal-konfirmasi {
@@ -145,11 +145,11 @@ body {
 }
 
 #tombol-iya:hover {
-  background-color: #22c55e !important; /* Tailwind green-600 */
+  background-color: #22c55e !important; 
 }
 
 #tombol-tidak:hover {
-  background-color: #ef4444 !important; /* Tailwind red-600 */
+  background-color: #ef4444 !important;
 }
 
 /* Loading Screen Styles */
@@ -186,7 +186,7 @@ body {
   width: 40px;
   height: 40px;
   border: 5px solid #000000;
-  border-top: 5px solid #22c55e; /* Tailwind green-500 */
+  border-top: 5px solid #22c55e;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -349,7 +349,7 @@ canvas#papan {
 }
 
 #game-over-content h2 {
-  color: #000000; /* Warna hitam */
+  color: #000000; 
 }
 
 #ranking-text {
@@ -436,7 +436,7 @@ canvas#papan {
 /* Styles for tutor.html */
 .tutorial-container {
   text-align: center;
-  padding: 2rem 2rem 4rem 2rem; /* Increased bottom padding for buttons */
+  padding: 2rem 2rem 4rem 2rem;
   background-color: #eeeeee;
   border-radius: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -459,15 +459,15 @@ canvas#papan {
 }
 
 .tutorial-section:nth-child(1):hover {
-  background-color: #ef4444; /* Tailwind red-500 */
+  background-color: #ef4444; 
 }
 
 .tutorial-section:nth-child(2):hover {
-  background-color: #22c55e; /* Tailwind green-500 */
+  background-color: #22c55e;
 }
 
 .tutorial-section:nth-child(3):hover {
-  background-color: #3b82f6; /* Tailwind blue-500 */
+  background-color: #3b82f6
 }
 
 .button-container {
